@@ -1,0 +1,13 @@
+<div class = "container">
+  <h2 class="center-align">Anonymous Notes</h2>
+  
+  <app-add-note (addedNote)="updateNote($event)"></app-add-note>
+  <div id = "list">
+  <div id = "note" *ngFor = "let note of notes">
+    <small class="right-align">Noted on: {{note?.createdAt | date:'medium'}}</small>
+    <p>{{note?.content}}</p>
+  </div>
+</div>
+<!--<router-outlet></router-outlet>  -->
+</div>
+

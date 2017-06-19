@@ -1,0 +1,7 @@
+<div class = "formNote">
+    <form #addnote = 'ngForm'>
+      <label for="note">Note:</label>
+      <input type="text" name="content" id = "note" value="" [(ngModel)] = 'note.content' #content = 'ngModel'>
+      <button type="submit" (click) = "create(addnote)" name="submit" value="Add Note" class = "waves-effect waves-light btn green">Add Note </button>
+    </form>
+  </div>

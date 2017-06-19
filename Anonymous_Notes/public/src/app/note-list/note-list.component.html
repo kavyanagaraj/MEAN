@@ -1,0 +1,14 @@
+<!--<div id = "list">
+  <div id = "note" *ngFor = "let note of notes">
+    <small class="right-align">Noted on: {{note?.createdAt | date:'medium'}}</small>
+    <p>{{note?.content}}</p>
+  </div>
+</div>-->
+
+<div class = "formNote">
+    <form>
+      <label for="note">Note:</label>
+      <input type="text" name="content" id = "note" value="" [(ngModel)] = 'note.content' #content = 'ngModel'>
+      <button type="submit" (click) = "create()" name="submit" value="Add Note" class = "waves-effect waves-light btn green">Add Note </button>
+    </form>
+  </div>

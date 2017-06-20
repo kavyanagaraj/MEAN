@@ -12,7 +12,7 @@ export class AppComponent {
   constructor(private _httpService: HttpService) { 
     this._httpService.retrieveAll()
     .then( notes => { console.log("notes", notes); this.notes = notes; })
-    .catch( err => { console.log(err); })
+    .catch( err => { console.log("err", err); })
   }
 
   updateNote(data){

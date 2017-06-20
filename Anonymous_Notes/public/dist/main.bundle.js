@@ -190,7 +190,7 @@ var AppComponent = (function () {
         this.notes = [];
         this._httpService.retrieveAll()
             .then(function (notes) { console.log("notes", notes); _this.notes = notes; })
-            .catch(function (err) { console.log(err); });
+            .catch(function (err) { console.log("err", err); });
     }
     AppComponent.prototype.updateNote = function (data) {
         console.log("data", data);

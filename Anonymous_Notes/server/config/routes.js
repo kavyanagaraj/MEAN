@@ -2,7 +2,6 @@ var notes = require('../controller/notes.js');
 module.exports = function(app){
 app.get('/notes', function(req, res) {
     notes.show(req, res);
-    // res.json(true);
 });
 
 app.post('/notes', function(req, res) {

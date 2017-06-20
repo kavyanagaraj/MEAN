@@ -1,7 +1,16 @@
 <div class = "formNote">
     <form #addnote = 'ngForm'>
       <label for="note">Note:</label>
-      <input type="text" name="content" id = "note" value="" [(ngModel)] = 'note.content' #content = 'ngModel'>
-      <button type="submit" (click) = "create(addnote)" name="submit" value="Add Note" class = "waves-effect waves-light btn green">Add Note </button>
+      <input type="text" name="content" id = "note" value="" 
+      required
+      minlength = 4
+      [(ngModel)] = 'note.content' 
+      #content = 'ngModel'>
+       <div *ngIf='content.errors && (content.touched || addnote.submitted)'>
+          <small id = "red" *ngIf = "content.errors?.required">* Note is required</small><br>
+          <small id = "red" *ngIf = "content.errors?.minlength">* Note must be at least 4 characters long</small>
+      </div>
+
+      <button type="submit" [disabled] = "!addnote.form.valid" (click) = "create(addnote)" name="submit" value="Add Note" class = "waves-effect waves-light btn green">Add Note </button>
     </form>
   </div>

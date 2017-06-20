@@ -21,7 +21,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".formNote{\n    border: 2px solid black;\n    padding: 10px;\n    margin: 10px;\n}\n\nbutton{\n    margin-left: 80%;\n}", ""]);
+exports.push([module.i, ".formNote{\n    border: 2px solid black;\n    padding: 10px;\n    margin: 10px;\n}\n\nbutton{\n    margin-left: 80%;\n}\n\n#red{\n    color: red;\n}", ""]);
 
 // exports
 
@@ -34,7 +34,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/add-note/add-note.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class = \"formNote\">\n    <form #addnote = 'ngForm'>\n      <label for=\"note\">Note:</label>\n      <input type=\"text\" name=\"content\" id = \"note\" value=\"\" [(ngModel)] = 'note.content' #content = 'ngModel'>\n      <button type=\"submit\" (click) = \"create(addnote)\" name=\"submit\" value=\"Add Note\" class = \"waves-effect waves-light btn green\">Add Note </button>\n    </form>\n  </div>\n"
+module.exports = "<div class = \"formNote\">\n    <form #addnote = 'ngForm'>\n      <label for=\"note\">Note:</label>\n      <input type=\"text\" name=\"content\" id = \"note\" value=\"\" \n      required\n      minlength = 4\n      [(ngModel)] = 'note.content' \n      #content = 'ngModel'>\n       <div *ngIf='content.errors && (content.touched || addnote.submitted)'>\n          <small id = \"red\" *ngIf = \"content.errors?.required\">* Note is required</small><br>\n          <small id = \"red\" *ngIf = \"content.errors?.minlength\">* Note must be at least 4 characters long</small>\n      </div>\n\n      <button type=\"submit\" [disabled] = \"!addnote.form.valid\" (click) = \"create(addnote)\" name=\"submit\" value=\"Add Note\" class = \"waves-effect waves-light btn green\">Add Note </button>\n    </form>\n  </div>\n"
 
 /***/ }),
 

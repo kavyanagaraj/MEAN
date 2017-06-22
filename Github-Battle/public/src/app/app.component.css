@@ -1,0 +1,8 @@
+h2, p{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.right-align{
+    margin-left: 50%;
+}

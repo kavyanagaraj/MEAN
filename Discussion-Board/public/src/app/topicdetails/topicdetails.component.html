@@ -1,0 +1,29 @@
+<div class ="container">
+
+<p><a>{{currtopic[0]?._user.username | json}}</a> posted a topic:</p>
+<p>Description: {{currtopic[0]?.description | json}}</p>
+<p>Post your answer here...</p>
+
+<form #postForm='ngForm' (submit)="addPost(postForm)">
+
+<input type="text" name="content" [(ngModel)]="post.content" required minlength= '5' #content ='ngModel'>
+<input type="submit" class="waves-effect waves-light btn" value ="Post" [disabled]="!postForm.valid">
+</form>
+<hr>
+<div *ngFor = "let post of currtopic[0].posts">
+    <p>
+        <a>{{post?.username}}</a> : {{post?.content}}
+    </p>
+    <div class = "container">
+        <div *ngFor = "let comment of post.comments">
+        <a>{{comment?.username}}</a> : {{comment.content}}
+    </div>
+    <form #commentForm='ngForm' (submit)="addComment(commentForm)">
+    <input type="text" name="content" [(ngModel)]="comment.content" required minlength= '5' #content ='ngModel'>
+    <input type="submit" value ="Comment" class="waves-effect waves-light btn" [disabled]="!commentForm.valid">
+    </form>
+    </div>
+</div>
+
+
+</div>

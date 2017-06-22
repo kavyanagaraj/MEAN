@@ -1,0 +1,21 @@
+#left{
+    border: 2px solid black;
+    text-align: center;
+    padding: 10px;
+    height: 300px;
+}
+#battle{
+    display: block;
+    width: 90%;
+    /*margin: 20px;*/
+    /*text-align: center;*/
+}
+
+#battleDiv{
+    margin: 20px;
+}
+
+#red{
+    color: red;
+}
+

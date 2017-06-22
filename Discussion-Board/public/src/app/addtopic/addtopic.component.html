@@ -1,0 +1,41 @@
+<div class = "formTopic" class = "container">
+    <form #formTopic = 'ngForm'>
+      <label for="topic">Topic:</label>
+      <input type="text" name="content" id = "topic" value="" 
+      required
+      minlength = 5
+      [(ngModel)] = 'newtopic.content' 
+      #content = 'ngModel'>
+       <div *ngIf='content.errors && (content.touched || formTopic.submitted)'>
+          <small id = "red" *ngIf = "content.errors?.required">* Topic is required</small><br>
+          <small id = "red" *ngIf = "content.errors?.minlength">* Topic must be at least 5 characters long</small>
+      </div>
+
+       <label for="description">Description:</label>
+      <input type="text" name="description" id = "description" value="" 
+      required
+      minlength = 5
+      [(ngModel)] = 'newtopic.description' 
+      #description = 'ngModel'>
+       <div *ngIf='description.errors && (description.touched || formTopic.submitted)'>
+          <small id = "red" *ngIf = "description.errors?.required">* Description is required</small><br>
+          <small id = "red" *ngIf = "description.errors?.minlength">* Description must be at least 5 characters long</small>
+      </div>
+
+      <label for="category">Category:</label>
+     <input type="text" name="category" id = "category" value="" 
+      required
+      minlength = 2
+      [(ngModel)] = 'newtopic.category' 
+      #category = 'ngModel'>
+       <div *ngIf='category.errors && (category.touched || formTopic.submitted)'>
+          <small id = "red" *ngIf = "category.errors?.required">* Category is required</small><br>
+          <small id = "red" *ngIf = "category.errors?.minlength">* Category must be at least 2 characters long</small>
+      </div>
+
+      <div class = "row">
+         <button class = "col s2 offset-s10" type="submit" [disabled] = "!formTopic.form.valid" (click) = "create(formTopic)" name="submit" value="Add Topic" class = "waves-effect waves-light btn green">Add Topic </button>
+      </div>
+    </form>
+  
+  </div>

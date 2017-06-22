@@ -1,0 +1,11 @@
+<div id = "main">
+  <div *ngFor = "let player of players" class = "row" id = "row1">
+    <div class = "col s5" id = "profile">
+        <img  src = '{{player.avatar_url}}'  height="80" width="70" alt="">
+        <p>{{player.name}}</p>
+    </div>
+    <div class = "col s4 offset-s2" id = "score">
+      <strong> <p>Score: {{player.score}}</p></strong>
+    </div>
+  </div>
+</div>

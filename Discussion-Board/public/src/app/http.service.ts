@@ -61,8 +61,30 @@ export class HttpService {
     .toPromise();
   }
 
+  downvote(post){
+    return this._http.post(`/downvote`, post)
+    .map( data => data.json() )
+    .toPromise();
+  }
 
+  upvote(post){
+    return this._http.post(`/upvote`, post)
+    .map( data => data.json() )
+    .toPromise();
+  }
 
+  createComment(comment, name) {
+    return this._http.post(`/comment/${name}`, comment)
+    .map( data => data.json() )
+    .toPromise();
+  }
+
+  //User CRUD
+  retrieveUser(name){
+    return this._http.get(`/user/${name}`)
+    .map( data => data.json() )
+    .toPromise();
+  }
 
 
 

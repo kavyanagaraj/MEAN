@@ -34,12 +34,10 @@ module.exports = {
     })
   }, 
 
-//   , model: 'Post',
-//      populate: {path: 'posts._user', model: 'User'}
   showOne: function(req,res){
-      Topic.find({_id: req.params.id}).populate('posts').populate('posts._user').populate('_user').exec(function(err, topic){
+      Topic.find({_id: req.params.id}).populate({path: 'posts', model: 'Post',
+       populate: {path: '_user comments', populate :{path: '_user', model: 'User'}}}).populate('_user').exec(function(err, topic){
         if(!err){
-            console.log("Single Topic", topic);
             res.json(topic);
         }else{
             console.log(err);

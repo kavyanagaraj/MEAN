@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {CookieService} from 'angular2-cookie/core';
 
 @Component({
@@ -6,17 +6,19 @@ import {CookieService} from 'angular2-cookie/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'app';
-
+  key = this._cookieService.get("key");
   constructor(private _cookieService:CookieService){
-
-    
-
   }
+
   logout(){
     console.log("The key is:",(this._cookieService.get("key")) );
     this._cookieService.removeAll();
     console.log("The key is empty:",(this._cookieService.get("key")) );
+  }
+
+  ngOnInit() {
+    this.key = this._cookieService.get("key") ; 
   }
 }

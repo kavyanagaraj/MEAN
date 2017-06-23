@@ -2,16 +2,15 @@
 var users = require('../controller/users.js');
 var topics = require('../controller/topics.js');
 var post = require('../controller/post.js');
+var comment = require('../controller/comment.js');
 var path = require('path');
 
 module.exports = function(app){
-  // app.get('/items', function(req, res){
-  //   items.show(req,res);
-  // });
-
-  // app.get('/items/:id', function(req, res){
-  //   items.showOne(req,res);
-  // });
+  //user routes
+  app.get('/user/:name', function(req, res){
+    console.log("Inside routes.js get user", req.params.name);
+    users.showOne(req,res);
+  });
 
   app.post('/user', function(req, res){
     users.create(req,res);
@@ -45,6 +44,19 @@ module.exports = function(app){
     post.create(req,res);
   });
 
+  app.post('/upvote', function(req, res){
+    post.upvote(req,res);
+  });
+
+  app.post('/downvote', function(req, res){
+    post.downvote(req,res);
+  });
+
+  app.post('/comment/:name', function(req, res){
+    comment.createcomment(req,res);
+  });
+
+  
 
  app.all("*", function(req,res){
     res.sendFile(path.resolve("./public/dist/index.html"));

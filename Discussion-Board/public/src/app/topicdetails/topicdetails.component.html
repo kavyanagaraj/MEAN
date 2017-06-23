@@ -1,4 +1,4 @@
-<div class ="container">
+<div class ="container" *ngIf = "currtopic">
 
 <p><a>{{currtopic[0]?._user.username | json}}</a> posted a topic:</p>
 <p>Description: {{currtopic[0]?.description | json}}</p>
@@ -7,21 +7,34 @@
 <form #postForm='ngForm' (submit)="addPost(postForm)">
 
 <input type="text" name="content" [(ngModel)]="post.content" required minlength= '5' #content ='ngModel'>
-<input type="submit" class="waves-effect waves-light btn" value ="Post" [disabled]="!postForm.valid">
+<div *ngIf='content.errors && (content.touched || postForm.submitted)'>
+    <small id = "red" *ngIf = "content.errors?.minlength">* Post must be at least 5 characters long</small>
+</div>
+<input type="submit" id = "button" class="waves-effect waves-light btn" value ="Post" [disabled]="!postForm.valid">
 </form>
 <hr>
 <div *ngFor = "let post of currtopic[0].posts">
     <p>
-        <a>{{post?.username}}</a> : {{post?.content}}
+        <a [routerLink]="['/singleuser',post?._user?.username]">{{post?._user?.username}}</a> : {{post?.content}}
+         <a (click) = "downvote(post._id)" class = "downvote">
+          <span class="glyphicon glyphicon-thumbs-down"></span>  {{post.downvotes.length}}
+        </a>       
+        <a (click) = "upvote(post._id)" class = "upvote">
+          <span class="glyphicon glyphicon-thumbs-up"></span>   {{post.upvotes.length}}
+        </a>
     </p>
     <div class = "container">
         <div *ngFor = "let comment of post.comments">
-        <a>{{comment?.username}}</a> : {{comment.content}}
-    </div>
-    <form #commentForm='ngForm' (submit)="addComment(commentForm)">
-    <input type="text" name="content" [(ngModel)]="comment.content" required minlength= '5' #content ='ngModel'>
-    <input type="submit" value ="Comment" class="waves-effect waves-light btn" [disabled]="!commentForm.valid">
-    </form>
+            <a [routerLink]="['/singleuser',comment?._user?.username]">{{comment?._user?.username}}</a> : {{comment.content}}
+        </div>
+        <form #commentForm='ngForm' (submit)="addComment(commentForm, content.value, post._id)">
+        <input type="text" name="content" minlength = '5' #content>
+        <div *ngIf='content.errors && (content.touched || commentForm.submitted)'>
+            <small id = "red" *ngIf = "content.errors?.minlength">* Comment must be at least 5 characters long</small>
+        </div>
+        <input type="submit" id = "button" value ="Comment" class="waves-effect waves-light btn" [disabled]="!commentForm.valid">
+        </form>
+    
     </div>
 </div>
 

@@ -476,8 +476,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var routes = [
     { path: '', pathMatch: 'full', redirectTo: '/login' },
     { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_2__dashboard_dashboard_component__["a" /* DashboardComponent */] },
-    { path: 'user/:id', component: __WEBPACK_IMPORTED_MODULE_3__userpage_userpage_component__["a" /* UserpageComponent */] },
-    { path: 'topic/:id', component: __WEBPACK_IMPORTED_MODULE_4__topicdetails_topicdetails_component__["a" /* TopicdetailsComponent */] },
+    { path: 'singleuser/:name', component: __WEBPACK_IMPORTED_MODULE_3__userpage_userpage_component__["a" /* UserpageComponent */] },
+    { path: 'singletopic/:id', component: __WEBPACK_IMPORTED_MODULE_4__topicdetails_topicdetails_component__["a" /* TopicdetailsComponent */] },
     { path: 'login', component: __WEBPACK_IMPORTED_MODULE_5__login_login_component__["a" /* LoginComponent */] },
     { path: 'logout', redirectTo: 'login' },
     { path: '**', component: __WEBPACK_IMPORTED_MODULE_2__dashboard_dashboard_component__["a" /* DashboardComponent */] }
@@ -546,11 +546,15 @@ var AppComponent = (function () {
     function AppComponent(_cookieService) {
         this._cookieService = _cookieService;
         this.title = 'app';
+        this.key = this._cookieService.get("key");
     }
     AppComponent.prototype.logout = function () {
         console.log("The key is:", (this._cookieService.get("key")));
         this._cookieService.removeAll();
         console.log("The key is empty:", (this._cookieService.get("key")));
+    };
+    AppComponent.prototype.ngOnInit = function () {
+        this.key = this._cookieService.get("key");
     };
     return AppComponent;
 }());
@@ -657,7 +661,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<h3>Welcome, {{key}}!</h3>\n<div>\n  <table>\n  <thead>\n    <th>Category</th>\n    <th>Topic</th>\n    <th>User Name</th>\n    <th>Posts</th>\n  </thead>\n  <tbody>\n    <tr *ngFor = \"let topic of topics\">\n      <td>{{topic.category}}</td>\n      <td><a [routerLink]=\"['/topic',topic._id]\">{{topic.content}}</a></td>\n      <td>{{topic._user.username}}</td>\n      <td>{{topic.posts.length}}</td>\n    </tr>\n  </tbody>\n</table>\n<br>\n<app-addtopic (createtopic) = \"updatetopics()\"></app-addtopic>\n</div>\n"
+module.exports = "\n<h3>Welcome, {{key}}!</h3>\n<div>\n  <table class = \"table table-bordered\">\n  <thead>\n    <th>Category</th>\n    <th>Topic</th>\n    <th>User Name</th>\n    <th>Posts</th>\n  </thead>\n  <tbody>\n    <tr *ngFor = \"let topic of topics\">\n      <td>{{topic.category}}</td>\n      <td><a [routerLink]=\"['/singletopic',topic._id]\">{{topic.content}}</a></td>\n      <td><a [routerLink]=\"['/singleuser',topic._user.username]\">{{topic._user.username}}</a></td>\n      <td>{{topic.posts.length}}</td>\n    </tr>\n  </tbody>\n</table>\n<br>\n<app-addtopic (createtopic) = \"updatetopics()\"></app-addtopic>\n</div>\n"
 
 /***/ }),
 
@@ -795,6 +799,27 @@ var HttpService = (function () {
             .map(function (data) { return data.json(); })
             .toPromise();
     };
+    HttpService.prototype.downvote = function (post) {
+        return this._http.post("/downvote", post)
+            .map(function (data) { return data.json(); })
+            .toPromise();
+    };
+    HttpService.prototype.upvote = function (post) {
+        return this._http.post("/upvote", post)
+            .map(function (data) { return data.json(); })
+            .toPromise();
+    };
+    HttpService.prototype.createComment = function (comment, name) {
+        return this._http.post("/comment/" + name, comment)
+            .map(function (data) { return data.json(); })
+            .toPromise();
+    };
+    //User CRUD
+    HttpService.prototype.retrieveUser = function (name) {
+        return this._http.get("/user/" + name)
+            .map(function (data) { return data.json(); })
+            .toPromise();
+    };
     return HttpService;
 }());
 HttpService = __decorate([
@@ -828,7 +853,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  Please enter your name to join!\n</p>\n\n<form #loginForm = 'ngForm' (submit)='login(loginForm)'>\n<label for=\"username\">Username:</label>\n<input type=\"text\" name=\"username\" id = 'username' required minlength = '4' #username = 'ngModel' [(ngModel)]=\"user.username\"><br>\n<input type=\"submit\" [disabled] = '!loginForm.valid'>\n</form>\n"
+module.exports = "<p>\n  Please enter your name to join!\n</p>\n\n<form #loginForm = 'ngForm' (submit)='login(loginForm)'>\n<label for=\"username\">Username:</label>\n<input type=\"text\" name=\"username\" id = 'username' required minlength = '4' #username = 'ngModel' [(ngModel)]=\"user.username\"><br>\n<input type=\"submit\" class=\"waves-effect waves-light btn\" [disabled] = '!loginForm.valid'>\n</form>\n"
 
 /***/ }),
 
@@ -898,7 +923,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".upvote, .downvote{\n   float: right;\n}\n\n#button{\n    margin-left : 85%;\n}\n\n#red{\n    color : red;\n}", ""]);
 
 // exports
 
@@ -911,7 +936,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/topicdetails/topicdetails.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class =\"container\">\n\n<p><a>{{currtopic[0]?._user.username | json}}</a> posted a topic:</p>\n<p>Description: {{currtopic[0]?.description | json}}</p>\n<p>Post your answer here...</p>\n\n<form #postForm='ngForm' (submit)=\"addPost(postForm)\">\n\n<input type=\"text\" name=\"content\" [(ngModel)]=\"post.content\" required minlength= '5' #content ='ngModel'>\n<input type=\"submit\" class=\"waves-effect waves-light btn\" value =\"Post\" [disabled]=\"!postForm.valid\">\n</form>\n<hr>\n<div *ngFor = \"let post of currtopic[0].posts\">\n    <p>\n        <a>{{post?.username}}</a> : {{post?.content}}\n    </p>\n    <div class = \"container\">\n        <div *ngFor = \"let comment of post.comments\">\n        <a>{{comment?.username}}</a> : {{comment.content}}\n    </div>\n    <form #commentForm='ngForm' (submit)=\"addComment(commentForm)\">\n    <input type=\"text\" name=\"content\" [(ngModel)]=\"comment.content\" required minlength= '5' #content ='ngModel'>\n    <input type=\"submit\" value =\"Comment\" class=\"waves-effect waves-light btn\" [disabled]=\"!commentForm.valid\">\n    </form>\n    </div>\n</div>\n\n\n</div>\n"
+module.exports = "<div class =\"container\" *ngIf = \"currtopic\">\n\n<p><a>{{currtopic[0]?._user.username | json}}</a> posted a topic:</p>\n<p>Description: {{currtopic[0]?.description | json}}</p>\n<p>Post your answer here...</p>\n\n<form #postForm='ngForm' (submit)=\"addPost(postForm)\">\n\n<input type=\"text\" name=\"content\" [(ngModel)]=\"post.content\" required minlength= '5' #content ='ngModel'>\n<div *ngIf='content.errors && (content.touched || postForm.submitted)'>\n    <small id = \"red\" *ngIf = \"content.errors?.minlength\">* Post must be at least 5 characters long</small>\n</div>\n<input type=\"submit\" id = \"button\" class=\"waves-effect waves-light btn\" value =\"Post\" [disabled]=\"!postForm.valid\">\n</form>\n<hr>\n<div *ngFor = \"let post of currtopic[0].posts\">\n    <p>\n        <a [routerLink]=\"['/singleuser',post?._user?.username]\">{{post?._user?.username}}</a> : {{post?.content}}\n         <a (click) = \"downvote(post._id)\" class = \"downvote\">\n          <span class=\"glyphicon glyphicon-thumbs-down\"></span>  {{post.downvotes.length}}\n        </a>       \n        <a (click) = \"upvote(post._id)\" class = \"upvote\">\n          <span class=\"glyphicon glyphicon-thumbs-up\"></span>   {{post.upvotes.length}}\n        </a>\n    </p>\n    <div class = \"container\">\n        <div *ngFor = \"let comment of post.comments\">\n            <a [routerLink]=\"['/singleuser',comment?._user?.username]\">{{comment?._user?.username}}</a> : {{comment.content}}\n        </div>\n        <form #commentForm='ngForm' (submit)=\"addComment(commentForm, content.value, post._id)\">\n        <input type=\"text\" name=\"content\" minlength = '5' #content>\n        <div *ngIf='content.errors && (content.touched || commentForm.submitted)'>\n            <small id = \"red\" *ngIf = \"content.errors?.minlength\">* Comment must be at least 5 characters long</small>\n        </div>\n        <input type=\"submit\" id = \"button\" value =\"Comment\" class=\"waves-effect waves-light btn\" [disabled]=\"!commentForm.valid\">\n        </form>\n    \n    </div>\n</div>\n\n\n</div>\n"
 
 /***/ }),
 
@@ -945,19 +970,23 @@ var TopicdetailsComponent = (function () {
         this._cookieService = _cookieService;
         this._httpService = _httpService;
         this.router = router;
-        this.currtopic = {};
         this.post = { content: '', _topic: "" };
         this.comment = { content: '', _post: '' };
+        this.votepost = {};
         this._route.params.subscribe(function (param) {
-            console.log("Params topic id", param.id);
-            _this._httpService.retrieveOneTopic(param.id)
-                .then(function (data) {
-                _this.currtopic = data;
-                console.log("Topic:", _this.currtopic);
-            })
-                .catch(function (err) { console.log("err in retrieving one topic", err); });
+            _this.topic_id = param.id;
+            _this.retrieveOneTopic(_this.topic_id);
         });
     }
+    TopicdetailsComponent.prototype.retrieveOneTopic = function (topicid) {
+        var _this = this;
+        this._httpService.retrieveOneTopic(topicid)
+            .then(function (data) {
+            _this.currtopic = data;
+            console.log("Topic:", _this.currtopic);
+        })
+            .catch(function (err) { console.log("err in retrieving one topic", err); });
+    };
     TopicdetailsComponent.prototype.addPost = function (form) {
         this.post._topic = this.currtopic[0]._id;
         this._httpService.createPost(this.post, this._cookieService.get("key"))
@@ -965,7 +994,42 @@ var TopicdetailsComponent = (function () {
             .catch(function (err) { console.log("Failed to add:", err); });
         form.resetForm();
     };
+    TopicdetailsComponent.prototype.downvote = function (postid) {
+        var _this = this;
+        this.votepost = {
+            postid: postid,
+            user: this._cookieService.get("key")
+        };
+        this._httpService.downvote(this.votepost)
+            .then(function (data) { console.log("the new post:", data); _this.retrieveOneTopic(_this.topic_id); })
+            .catch(function (err) { console.log("Failed to add:", err); });
+    };
+    TopicdetailsComponent.prototype.upvote = function (postid) {
+        var _this = this;
+        this.votepost = {
+            postid: postid,
+            user: this._cookieService.get("key")
+        };
+        this._httpService.upvote(this.votepost)
+            .then(function (data) { console.log("the new post:", data); _this.retrieveOneTopic(_this.topic_id); })
+            .catch(function (err) { console.log("Failed to add:", err); });
+    };
+    TopicdetailsComponent.prototype.addComment = function (form, comment, postid) {
+        var _this = this;
+        this.comment.content = comment;
+        this.comment._post = postid;
+        console.log("comment from form", comment);
+        console.log("add comment", this.comment);
+        this._httpService.createComment(this.comment, this._cookieService.get("key"))
+            .then(function (data) { console.log("the new comment:", data); _this.retrieveOneTopic(_this.topic_id); })
+            .catch(function (err) { console.log("Failed to add:", err); });
+        form.resetForm();
+    };
     TopicdetailsComponent.prototype.ngOnInit = function () {
+        this.key = this._cookieService.get("key");
+        if (this.key === undefined) {
+            this.router.navigate(['/login']);
+        }
     };
     return TopicdetailsComponent;
 }());
@@ -1004,7 +1068,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/userpage/userpage.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  userpage works!\n</p>\n"
+module.exports = "\n<div class = \"container\" *ngIf = \"user\">\n  <h4>Username: {{user[0]?.username}}</h4>\n  <br>\n  <p>Posted...</p>\n  <div class = \"container\">\n   <p> {{user[0]?.topics.length}} Topics </p>\n   <p> {{user[0]?.posts.length}} Posts</p>\n   <p> {{user[0]?.comments.length}} Comment</p>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1013,6 +1077,10 @@ module.exports = "<p>\n  userpage works!\n</p>\n"
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_cookie_core__ = __webpack_require__("../../../../../../node_modules/angular2-cookie/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_cookie_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular2_cookie_core__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__http_service__ = __webpack_require__("../../../../../src/app/http.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserpageComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1024,10 +1092,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
 var UserpageComponent = (function () {
-    function UserpageComponent() {
+    function UserpageComponent(_route, _cookieService, _httpService, router) {
+        var _this = this;
+        this._route = _route;
+        this._cookieService = _cookieService;
+        this._httpService = _httpService;
+        this.router = router;
+        this._route.params.subscribe(function (param) {
+            console.log("Params user name", param.name);
+            _this.username = param.name;
+            _this.retrieveUser(_this.username);
+        });
     }
     UserpageComponent.prototype.ngOnInit = function () {
+    };
+    UserpageComponent.prototype.retrieveUser = function (name) {
+        var _this = this;
+        this._httpService.retrieveUser(name)
+            .then(function (data) { console.log("the user:", data); _this.user = data; })
+            .catch(function (err) { console.log("Failed to retrieve user:", err); });
     };
     return UserpageComponent;
 }());
@@ -1037,9 +1124,10 @@ UserpageComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/userpage/userpage.component.html"),
         styles: [__webpack_require__("../../../../../src/app/userpage/userpage.component.css")]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_angular2_cookie_core__["CookieService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_angular2_cookie_core__["CookieService"]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__http_service__["a" /* HttpService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__http_service__["a" /* HttpService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */]) === "function" && _d || Object])
 ], UserpageComponent);
 
+var _a, _b, _c, _d;
 //# sourceMappingURL=userpage.component.js.map
 
 /***/ }),

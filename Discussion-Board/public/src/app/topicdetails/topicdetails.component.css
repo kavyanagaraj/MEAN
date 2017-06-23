@@ -1,0 +1,11 @@
+.upvote, .downvote{
+   float: right;
+}
+
+#button{
+    margin-left : 85%;
+}
+
+#red{
+    color : red;
+}

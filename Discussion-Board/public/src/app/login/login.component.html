@@ -5,5 +5,5 @@
 <form #loginForm = 'ngForm' (submit)='login(loginForm)'>
 <label for="username">Username:</label>
 <input type="text" name="username" id = 'username' required minlength = '4' #username = 'ngModel' [(ngModel)]="user.username"><br>
-<input type="submit" [disabled] = '!loginForm.valid'>
+<input type="submit" class="waves-effect waves-light btn" [disabled] = '!loginForm.valid'>
 </form>

@@ -28,5 +28,40 @@ create: function(req, res) {
             })
         })
     })
-}
+},
+
+upvote: function(req,res){
+    console.log("Inside upvote")
+    User.findOne({username: req.body.user}, function(err, user){
+        Post.findOne({_id: req.body.postid}, function(err, post){
+            post.upvotes.push(user._id);
+            post.save(function(err){
+                if(err){
+                    console.log("Error saving upvote on a post");
+                }
+                else {
+                    res.json(true);
+                }
+           })
+        })
+    })
+},
+
+downvote: function(req,res){
+    console.log("Inside downvote")
+    User.findOne({username: req.body.user}, function(err, user){
+        Post.findOne({_id: req.body.postid}, function(err, post){
+            post.downvotes.push(user._id);
+            post.save(function(err){
+                if(err){
+                    console.log("Error saving upvote on a post");
+                }
+                else {
+                    res.json(true);
+                }
+           })
+        })
+    })
+},
+
 }

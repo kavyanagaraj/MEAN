@@ -36,9 +36,11 @@ module.exports = {
   },
 
   showOne: function(req,res){
-      User.find({_id: req.params.id}, function(err, item){
+      console.log("Inside show one of user.js", req.params.name);
+      User.find({username: req.params.name}).populate('topics').populate('comments').populate('posts').exec(function(err, user){
         if(!err){
-            res.json(item);
+            console.log("User in server side", user)
+            res.json(user);
         }else{
             console.log(err);
             res.json(err);

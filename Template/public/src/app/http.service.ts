@@ -7,6 +7,12 @@ export class HttpService {
 
   constructor(private _http: Http) { }
 
+  createUser(user) {
+    return this._http.post(`/user`, user)
+    .map( data => data.json() )
+    .toPromise();
+  }
+
   retrieveAll() {
     return this._http.get(`/items`)
     .map( data => data.json() )
@@ -27,9 +33,9 @@ export class HttpService {
     .map( data => data.json() )
     .toPromise();
   }
-  // deleteOne(id) {
-  //   return this._http.put('/items/${id}')
-  //   .map( data => data.json() )
-  //   .toPromise();
-  // }
+  deleteOne(item, id) {
+    return this._http.put('/items/${id}', item)
+    .map( data => data.json() )
+    .toPromise();
+  }
 }

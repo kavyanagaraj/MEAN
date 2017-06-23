@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
 import { HttpService } from './http.service';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,7 @@ import { HttpService } from './http.service';
     FormsModule,
     HttpModule
   ],
-  providers: [HttpService],
+  providers: [HttpService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

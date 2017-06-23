@@ -14,6 +14,11 @@ export class PollComponent implements OnInit {
   survey; vote ;
   constructor(private _route: ActivatedRoute, private _cookieService:CookieService, 
       private _httpService: HttpService, private router: Router) { 
+      this.key = this._cookieService.get("key")
+      console.log("Create key", this.key);
+      if(this.key === undefined){
+        this.router.navigate(['/login']);
+      }  
       this._route.params.subscribe((param)=>{
         this.survey_id = param.id;
         this.retrieveOneTopic(this.survey_id);  

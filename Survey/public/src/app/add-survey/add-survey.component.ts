@@ -18,8 +18,15 @@ export class AddSurveyComponent implements OnInit {
     option4 : { name : "", votes : 0},
     username : ""
   }
-
-  constructor(private _cookieService:CookieService, private _httpService: HttpService, private router: Router) { }
+  key : string;
+  
+  constructor(private _cookieService:CookieService, private _httpService: HttpService, private router: Router) { 
+    this.key = this._cookieService.get("key")
+      console.log("Create key", this.key);
+      if(this.key === undefined){
+        this.router.navigate(['/login']);
+      } 
+  }
 
   ngOnInit() {
   }

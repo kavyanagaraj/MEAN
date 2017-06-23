@@ -424,6 +424,11 @@ var AddSurveyComponent = (function () {
             option4: { name: "", votes: 0 },
             username: ""
         };
+        this.key = this._cookieService.get("key");
+        console.log("Create key", this.key);
+        if (this.key === undefined) {
+            this.router.navigate(['/login']);
+        }
     }
     AddSurveyComponent.prototype.ngOnInit = function () {
     };
@@ -968,6 +973,11 @@ var PollComponent = (function () {
         this._cookieService = _cookieService;
         this._httpService = _httpService;
         this.router = router;
+        this.key = this._cookieService.get("key");
+        console.log("Create key", this.key);
+        if (this.key === undefined) {
+            this.router.navigate(['/login']);
+        }
         this._route.params.subscribe(function (param) {
             _this.survey_id = param.id;
             _this.retrieveOneTopic(_this.survey_id);

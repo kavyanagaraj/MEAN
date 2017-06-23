@@ -35,7 +35,7 @@ module.exports = {
   }, 
 
   showOne: function(req,res){
-      Topic.find({_id: req.params.id}).populate({path: 'posts', model: 'Post',
+      Topic.findOne({_id: req.params.id}).populate({path: 'posts', model: 'Post',
        populate: {path: '_user comments', populate :{path: '_user', model: 'User'}}}).populate('_user').exec(function(err, topic){
         if(!err){
             res.json(topic);

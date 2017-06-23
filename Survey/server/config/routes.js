@@ -28,14 +28,6 @@ module.exports = function(app){
     survey.delete(req,res);
   });
 
-  // app.put('/items/:id', function(req, res){
-  //   items.updateOne(req, res);
-  // });
-
-  // app.delete('/items/:id', function(req, res){
-  //   items.deleteOne(req, res);
-  // });
-
   app.all("*", function(req,res){
     res.sendFile(path.resolve("./public/dist/index.html"));
   });

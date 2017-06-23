@@ -16,17 +16,15 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.key = this._cookieService.get("key")
-    console.log("this.key", this.key);
     if(this.key === undefined){
       this.router.navigate(['/login']);
     }
     this._httpService.retrieveSurveys()
-    .then( data => { console.log("Surveys in dasboard", data); this.surveys = data})
+    .then( data => { this.surveys = data})
     .catch( err => { console.log("error in survey retrieval",err); });
   }
 
   logout(){
-    console.log("The key is:",(this._cookieService.get("key")) );
     this._cookieService.removeAll();
     console.log("The key is empty:",(this._cookieService.get("key")) );
   }

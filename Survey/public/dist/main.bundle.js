@@ -696,16 +696,14 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.key = this._cookieService.get("key");
-        console.log("this.key", this.key);
         if (this.key === undefined) {
             this.router.navigate(['/login']);
         }
         this._httpService.retrieveSurveys()
-            .then(function (data) { console.log("Surveys in dasboard", data); _this.surveys = data; })
+            .then(function (data) { _this.surveys = data; })
             .catch(function (err) { console.log("error in survey retrieval", err); });
     };
     DashboardComponent.prototype.logout = function () {
-        console.log("The key is:", (this._cookieService.get("key")));
         this._cookieService.removeAll();
         console.log("The key is empty:", (this._cookieService.get("key")));
     };
@@ -888,7 +886,6 @@ var LoginComponent = (function () {
     }
     LoginComponent.prototype.ngOnInit = function () {
         this.key = this._cookieService.get("key");
-        console.log("this.key", this.key);
         if (this.key !== undefined) {
             this._cookieService.removeAll();
         }
@@ -898,7 +895,6 @@ var LoginComponent = (function () {
             .then(function (data) { console.log(data); })
             .catch(function (err) { console.log(err); });
         this._cookieService.put("key", this.user.username);
-        console.log(this._cookieService.get("key"));
         this.router.navigate(['/dashboard']);
     };
     return LoginComponent;
@@ -988,7 +984,6 @@ var PollComponent = (function () {
         this._httpService.retrieveOneSurvey(surveyid)
             .then(function (data) {
             _this.survey = data;
-            console.log("Single survey:", _this.survey);
         })
             .catch(function (err) { console.log("err in retrieving one survey", err); });
     };
@@ -998,7 +993,6 @@ var PollComponent = (function () {
             surveyid: this.survey_id,
             optionIs: option
         };
-        console.log("Vote in poll.ts", this.vote);
         this._httpService.upvote(this.vote)
             .then(function (data) { console.log("Voted:", data); _this.retrieveOneTopic(_this.survey_id); })
             .catch(function (err) { console.log("Failed to vote:", err); });

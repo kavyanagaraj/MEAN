@@ -11,7 +11,6 @@ var Option = new Schema({
     name: { type: String, required: true},
     votes : {type : Number}
 });
-// mongoose.model('Option', OptionSchema);
 
 var SurveySchema = new mongoose.Schema({
  question: { type: String, required: true},

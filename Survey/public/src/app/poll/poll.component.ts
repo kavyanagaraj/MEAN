@@ -30,7 +30,7 @@ export class PollComponent implements OnInit {
   retrieveOneTopic(surveyid){
     this._httpService.retrieveOneSurvey(surveyid)
       .then(data=>{
-        this.survey = data; console.log("Single survey:",this.survey);
+        this.survey = data;
       })
       .catch(err=>{console.log("err in retrieving one survey", err);})
  } 
@@ -42,7 +42,6 @@ voteUp(option){
       surveyid : this.survey_id,
       optionIs : option
     }
-    console.log("Vote in poll.ts", this.vote)
     this._httpService.upvote(this.vote)
     .then(data=>{console.log("Voted:",data); this.retrieveOneTopic(this.survey_id);})
     .catch(err=>{console.log("Failed to vote:",err);})

@@ -17,8 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(private _cookieService:CookieService, private _httpService: HttpService, private router: Router) { }
 
   ngOnInit() {
-    this.key = this._cookieService.get("key")
-    console.log("this.key", this.key);
+    this.key = this._cookieService.get("key");
     if(this.key !== undefined){
       this._cookieService.removeAll();
     }
@@ -30,9 +29,7 @@ export class LoginComponent implements OnInit {
     .catch(err => {console.log(err);});
 
     this._cookieService.put("key", this.user.username)
-    console.log(this._cookieService.get("key"));
-    this.router.navigate(['/dashboard']);
-    
+    this.router.navigate(['/dashboard']);    
   }
 
 }

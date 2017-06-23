@@ -988,9 +988,10 @@ var TopicdetailsComponent = (function () {
             .catch(function (err) { console.log("err in retrieving one topic", err); });
     };
     TopicdetailsComponent.prototype.addPost = function (form) {
+        var _this = this;
         this.post._topic = this.currtopic[0]._id;
         this._httpService.createPost(this.post, this._cookieService.get("key"))
-            .then(function (data) { console.log("the new post:", data); })
+            .then(function (data) { console.log("the new post:", data); _this.retrieveOneTopic(_this.topic_id); })
             .catch(function (err) { console.log("Failed to add:", err); });
         form.resetForm();
     };

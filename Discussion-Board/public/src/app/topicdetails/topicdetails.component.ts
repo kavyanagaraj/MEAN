@@ -33,7 +33,7 @@ export class TopicdetailsComponent implements OnInit {
   addPost(form){
     this.post._topic = this.currtopic[0]._id
     this._httpService.createPost(this.post, this._cookieService.get("key"))
-    .then(data=>{console.log("the new post:",data);})
+    .then(data=>{console.log("the new post:",data); this.retrieveOneTopic(this.topic_id);})
     .catch(err=>{console.log("Failed to add:",err);})
     form.resetForm();
   }

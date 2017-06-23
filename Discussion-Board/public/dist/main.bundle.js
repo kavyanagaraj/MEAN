@@ -424,10 +424,10 @@ var AddtopicComponent = (function () {
         this.name = this._cookieService.get("key");
     };
     AddtopicComponent.prototype.create = function (form) {
+        var _this = this;
         this._httpService.createTopic(this.newtopic, this.name)
-            .then(function (data) { console.log(data); })
+            .then(function (data) { console.log(data); _this.createtopic.emit(); })
             .catch(function (err) { console.log(err); });
-        this.createtopic.emit();
         form.resetForm();
     };
     return AddtopicComponent;

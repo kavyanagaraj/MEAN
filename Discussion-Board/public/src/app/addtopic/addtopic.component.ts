@@ -25,9 +25,8 @@ name : string
 
   create(form){
     this._httpService.createTopic(this.newtopic, this.name)
-    .then(data => {console.log(data);})
+    .then(data => {console.log(data); this.createtopic.emit();})
     .catch(err => {console.log(err);});
-    this.createtopic.emit()
     form.resetForm();
   }
 

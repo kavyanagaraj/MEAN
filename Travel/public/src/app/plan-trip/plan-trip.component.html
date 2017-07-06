@@ -1,0 +1,9 @@
+<p id = "header">
+ <a [routerLink] = "['/dashboard']"> Dashboard </a> | 
+<a [routerLink] = "['/logout']" (click)="logout()"> Logout </a>
+</p> 
+
+<div class = "container" id = "box">
+  <h5>Planner</h5>
+  <app-plan-days></app-plan-days>  
+</div>

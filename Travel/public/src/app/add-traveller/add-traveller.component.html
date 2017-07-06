@@ -1,0 +1,10 @@
+Inside traveller{{trip | json}} <br>
+  <ul *ngFor = "let traveller of trip._travellers; let i = index">
+    <li>{{traveller.email}}</li>
+  </ul>
+  <a class="waves-effect waves-light btn" (click) = "addTraveller()">Add Traveller</a> <br><br>
+  <div *ngFor = "let traveller of travellers; let i = index">
+    <small>Traveller</small>
+    <input type="text" value="" id = "email"[(ngModel)] = 'travellers[i].email' name = "email">
+    <a class="waves-effect waves-light btn" (click) = "updateTrip()">Add</a> <br><br>
+  </div>

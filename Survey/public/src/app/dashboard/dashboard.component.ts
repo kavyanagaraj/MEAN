@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
+  search;
   key:string;
   surveys = [];
   constructor(private _cookieService:CookieService, private _httpService: HttpService, private router: Router) { }
@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
       this.router.navigate(['/login']);
     }
     this._httpService.retrieveSurveys()
-    .then( data => { this.surveys = data})
+    .then( data => { this.surveys = data; console.log("Surveys in dasboard", data);})
     .catch( err => { console.log("error in survey retrieval",err); });
   }
 

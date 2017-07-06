@@ -626,7 +626,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_8__login_login_component__["a" /* LoginComponent */],
             __WEBPACK_IMPORTED_MODULE_9__dashboard_dashboard_component__["a" /* DashboardComponent */],
             __WEBPACK_IMPORTED_MODULE_10__add_survey_add_survey_component__["a" /* AddSurveyComponent */],
-            __WEBPACK_IMPORTED_MODULE_11__poll_poll_component__["a" /* PollComponent */]
+            __WEBPACK_IMPORTED_MODULE_11__poll_poll_component__["a" /* PollComponent */],
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -664,7 +664,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<p>\n<a [routerLink] = \"['/create']\"> Create a new Poll </a> |\n<a [routerLink] = \"['/logout']\" (click)=\"logout()\"> Logout </a>\n</p>\n\n\n<div class = \"row\">\n  <h3 >Current Polls:</h3>\n  <input id = \"search\" class  = \"input-field col s4 offset-s8\"type=\"text\" placeholder=\"Search\">\n</div>\n<div *ngIf = \"surveys\">\n  <table>\n  <thead>\n    <th>Name</th>\n    <th>Survey Question</th>\n    <th>Date Posted</th>\n    <th>Action</th>\n  </thead>\n  <tbody>\n    <tr *ngFor = \"let survey of surveys\">\n      <td> {{survey._user.username}} </td>\n      <td> <a [routerLink] = \"['/poll', survey._id]\"> {{survey.question}}</a></td>\n      <td> {{survey.createdAt | date:'longDate'}}</td>\n      <td *ngIf = \"key === survey._user.username\"> <a (click) = \"deleteSurvey(survey._id)\">Delete</a></td>\n    </tr>\n  </tbody>\n</table>\n</div>\n"
+module.exports = "\n<p>\n<a [routerLink] = \"['/create']\"> Create a new Poll </a> |\n<a [routerLink] = \"['/logout']\" (click)=\"logout()\"> Logout </a>\n</p>\n\n\n<div class = \"row\">\n  <h3 >Current Polls:</h3>\n  <input id = \"search\" name = \"search\" class  = \"input-field col s4 offset-s8\"type=\"text\" [(ngModel)] = 'search' placeholder=\"Search\">\n</div>\n<div *ngIf = \"surveys\">\n  <table>\n  <thead>\n    <th>Name</th>\n    <th>Survey Question</th>\n    <th>Date Posted</th>\n    <th>Action</th>\n  </thead>\n  <tbody>\n    <tr *ngFor = \"let survey of surveys\">\n      <td> {{survey._user.username}} </td>\n      <td> <a [routerLink] = \"['/poll', survey._id]\"> {{survey.question}}</a></td>\n      <td> {{survey.createdAt | date:'longDate'}}</td>\n      <td *ngIf = \"key === survey._user.username\"> <a (click) = \"deleteSurvey(survey._id)\">Delete</a></td>\n    </tr>\n  </tbody>\n</table>\n</div>\n"
 
 /***/ }),
 
@@ -705,7 +705,7 @@ var DashboardComponent = (function () {
             this.router.navigate(['/login']);
         }
         this._httpService.retrieveSurveys()
-            .then(function (data) { _this.surveys = data; })
+            .then(function (data) { _this.surveys = data; console.log("Surveys in dasboard", data); })
             .catch(function (err) { console.log("error in survey retrieval", err); });
     };
     DashboardComponent.prototype.logout = function () {

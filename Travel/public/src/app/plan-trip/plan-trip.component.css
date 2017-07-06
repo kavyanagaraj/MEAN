@@ -1,0 +1,13 @@
+#header{
+    margin-left: 80%;
+}
+
+#red{
+    color : red;
+}
+
+#box{
+    /* border: 2px solid black; */
+    padding: 10px;
+    /* margin: 10px; */
+}

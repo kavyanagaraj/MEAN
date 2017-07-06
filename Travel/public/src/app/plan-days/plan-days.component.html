@@ -1,0 +1,97 @@
+<div class = "row">
+  <form class="col s12" #tripForm = 'ngForm' (submit)='createTrip(tripForm)'>
+      <!-- {{trip | json}} <br> -->
+      <small id = "red" *ngIf ='dateerror'> {{ dateerror | json}} </small>
+      <div class="row">
+        <div class="input-field col s6">
+          <label for="start" [ngClass]="{'active': trip?.start_date}">Start Date:</label>
+          <input type="date" id = "start" name = "start_date" class="datepicker"
+            required
+            min = "today | date:'shortDate'"
+            [(ngModel)] = "trip.start_date"
+            #start_date = "ngModel"
+            (input) = "calculatedays(start_date.value, end_date.value)"
+          >
+          <div id="red" *ngIf='start_date.errors && (start_date.touched || tripForm.submitted)'>
+            <small *ngIf='start_date.errors.required'>Date is required</small>
+          </div>
+        </div>
+        <div class="input-field col s6">
+          <label for="end" [ngClass]="{'active': trip?.end_date}">End Date:</label>
+          <input type="date" id = "end" name = "end_date" class="datepicker"
+            required
+            [(ngModel)] = "trip.end_date"
+            #end_date = "ngModel"
+            (input) = "calculatedays(start_date.value, end_date.value)"
+          >
+          <div id="red" *ngIf='end_date.errors && (end_date.touched || tripForm.submitted)'>
+            <small *ngIf='end_date.errors.required'>Date is required</small>
+          </div>
+        </div>
+      </div>
+    
+      <div class = "row">
+        <div class="input-field col s6">
+          <label for="location">Location:</label>
+          <input type="text" name="location" id = 'location' 
+          required 
+          [(ngModel)] = "locationAuto"
+          #location = 'ngModel'
+          [options]='options' 
+          (setAddress) = "getAddress($event)"
+          (street_number) = 'street_number=$event'
+          (street)= 'street=$event'
+          (city)= 'city=$event'
+          (state)='state=$event'
+          (district)='district=$event'
+          (country)='country=$event'
+          (postal_code)='postal_code=$event'
+          (lat)='lat=$event' 
+          (lng)='lng=$event' 
+          (adr_address)='adr_address=$event' 
+          (name)='name=$event' 
+          (place_id)='place_id=$event' 
+          (types)='types=$event' 
+          (url)='url=$event'  
+          (utc_offset)='utc_offset=$event' 
+          (vicinity)='vicinity=$event' 
+          (photos)='photos=$event' 
+          (airport)='airport=$event' 
+          (CountryCodes)='CountryCodes=$event'
+           id="autocomplete"
+          ng2-google-place-autocomplete/> 
+         <br>
+          <div *ngIf = 'location.errors && (location.touched || tripForm.submitted)'>
+            <p id = "red" *ngIf = 'location.errors.required'>Location is required</p>
+          </div> 
+        </div> 
+        <div class="input-field col s6">
+          <label for="num">Number of Travellers:</label>
+          <input type="number" name="num" id = 'num'
+          required 
+          [(ngModel)] = "numTravellers"
+          #num = 'ngModel'
+          (input) = "addTravellers()"
+          ><br>
+          <div *ngIf = 'num.errors && (num.touched || tripForm.submitted)'>
+            <small  id = "red" *ngIf = 'num.errors.required'>Number of travellers is required to share trip info.</small>
+          </div> 
+        </div> 
+      </div> 
+      
+      <div *ngFor = "let dayNote of trip._days; let i = index;">
+        <small>Day {{i+1}}</small>
+           <textarea rows="60" cols="8" [(ngModel)] = 'trip._days[i].note' name = "note"></textarea>   
+        <!-- <input type="text" name="note" [value]="trip._days[i]" [(ngModel)] = "trip._days[i].note">  -->
+      </div>
+      <hr *ngIf = "trip._travellers.length > 0">
+      <p *ngIf = "trip._travellers.length > 0">Travellers</p>
+      <div *ngFor = "let traveller of trip._travellers; let i = index;">
+        <small>Traveller {{i+1}}</small>
+           <textarea rows="60" cols="8" [(ngModel)] = 'trip._travellers[i].email' name = "email"></textarea>  
+          <!-- <p *ngIf = "daysArr[i].note">{{daysArr[i].note | json}}</p> -->    
+        <!-- <input type="text" name="email" [value]="trip._travellers[i].email" [(ngModel)] = "trip._travellers[i].email">  -->
+      </div>
+      <button [disabled]="!tripForm.valid" type="submit" class="waves-effect waves-light btn">Create Trip</button> <br><br>
+   </form>
+ </div>

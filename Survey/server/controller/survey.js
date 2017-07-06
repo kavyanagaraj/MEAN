@@ -30,9 +30,10 @@ module.exports = {
     createSurvey: function(req, res) {
     console.log("creating survey with username", req.params.name);
     User.findOne({ username : req.params.name}, function(err, user){
-        var survey = new Survey(req.body);
-        survey._user = user._id;
-        survey.save(function(err){
+        if(!err){
+            var survey = new Survey(req.body);
+            survey._user = user._id;
+            survey.save(function(err){
             user._surveys.push(survey);
             user.save(function(err){
                 if(err){
@@ -41,8 +42,12 @@ module.exports = {
                 else {
                     res.json(true);
                 }
+                })
             })
-        })
+        } else{
+            console.log("Error creating survey", err);
+        }
+    
     })
 },
 

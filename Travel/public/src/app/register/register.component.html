@@ -1,0 +1,50 @@
+
+<div class = "container">  
+  <h5>
+  Register
+</h5>
+<form #regForm = 'ngForm' (submit)='register(regForm)'>
+<p *ngIf = "error" id = "red">{{error | json}}  <a [routerLink] = "['/login']">Click here to login</a></p>
+<label for="username">Username:</label>
+<input type="text" name="username" id = 'username' required minlength = '3' #username = 'ngModel' [(ngModel)]="newuser.username"><br>
+<div id = "red" *ngIf = 'username.errors && (username.touched || regForm.submitted)'>
+    <p *ngIf = 'username.errors.required'>Username is required!</p>
+    <p *ngIf = 'username.errors.minlength'>Minimum length is 3</p>
+  </div>
+<div class="form-group">
+    <label for="email">Email: </label>
+    <input type="email" name="email" class="form-control"
+    required
+    pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    #email='ngModel'
+    [(ngModel)]="newuser.email">
+    <div id="red" *ngIf='email.errors && (email.touched || regForm.submitted)'>
+      <p *ngIf='email.errors.required'>An email is required</p>
+      <p *ngIf='email.errors.pattern'>Please enter a valid email</p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="pw">Password: </label>
+    <input type="password" name="pw" class="form-control"
+    required
+    minlength = "3"
+    [(ngModel)]="newuser.password"
+    #pw = 'ngModel'>
+  </div>
+  <div id = "red" *ngIf = 'pw.errors && (pw.touched || regForm.submitted)'>
+    <p *ngIf = 'pw.errors.required'>Password is required!</p>
+    <p *ngIf = 'pw.errors.minlength'>Minimum length is 3</p>
+  </div>
+  <div class="form-group">
+    <label for="cpw">Confirm password: </label>
+    <input type="password" name="cpw" class="form-control"
+    [(ngModel)]="newuser.confirmpw"
+    #cpw='ngModel'>
+  </div>
+  <div id = "red" *ngIf = 'pw.value !== cpw.value && (cpw.touched || regForm.submitted)'>
+    <p>Passwords do not match!</p>
+  </div>
+  <button [disabled]="!regForm.valid || cpw.value!==pw.value" type="submit" class="waves-effect waves-light btn">Submit</button>
+</form>
+
+</div>

@@ -17,7 +17,7 @@ import { PollComponent } from './poll/poll.component';
     LoginComponent,
     DashboardComponent,
     AddSurveyComponent,
-    PollComponent
+    PollComponent,
   ],
   imports: [
     BrowserModule,

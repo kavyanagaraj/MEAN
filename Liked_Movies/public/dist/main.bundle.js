@@ -144,6 +144,7 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular2_cookie_services_cookies_service___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_angular2_cookie_services_cookies_service__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__login_login_component__ = __webpack_require__("../../../../../src/app/login/login.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/dashboard/dashboard.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__filter_search_pipe__ = __webpack_require__("../../../../../src/app/filter-search.pipe.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -151,6 +152,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -172,6 +174,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */],
             __WEBPACK_IMPORTED_MODULE_9__dashboard_dashboard_component__["a" /* DashboardComponent */],
             __WEBPACK_IMPORTED_MODULE_8__login_login_component__["a" /* LoginComponent */],
+            __WEBPACK_IMPORTED_MODULE_10__filter_search_pipe__["a" /* FilterPipe */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -209,7 +212,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class = \"container\">\n  <h3>Movies Evan Likes</h3>\n  <ul class=\"collection\" (click) = \"get_review(1)\">\n    <li class=\"collection-item\" *ngFor='let movie of movies' (click) = \"get_review(movie.id)\"> {{movie.score*100}}% <a href=\"{{movie.url}}\" target=\"_blank\"> - {{movie.title}}</a> - {{movie.year}}</li>\n  </ul>\n</div>\n\n\n"
+module.exports = "<div class = \"container\">\n  <h3>Movies Evan Likes</h3>\n  <input [(ngModel)]=\"searchText\" placeholder=\"Search by title\">\n  <ul class=\"collection\" (click) = \"get_review(1)\">\n    <li class=\"collection-item\" *ngFor='let movie of movies | filter : searchText' (click) = \"get_review(movie.id)\"> {{movie.score*100}}% <a href=\"{{movie.url}}\" target=\"_blank\"> - {{movie.title}}</a> - {{movie.year}}</li>\n  </ul>\n</div>\n\n\n"
 
 /***/ }),
 
@@ -302,6 +305,44 @@ var _a, _b;
 
 /***/ }),
 
+/***/ "../../../../../src/app/filter-search.pipe.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FilterPipe; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var FilterPipe = (function () {
+    function FilterPipe() {
+    }
+    FilterPipe.prototype.transform = function (items, searchText) {
+        if (!items)
+            return [];
+        if (!searchText || searchText.length < 2)
+            return items;
+        searchText = searchText.toLowerCase();
+        return items.filter(function (item) {
+            return item.title.toString().toLowerCase().includes(searchText);
+        });
+    };
+    return FilterPipe;
+}());
+FilterPipe = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"])({
+        name: 'filter'
+    })
+], FilterPipe);
+
+//# sourceMappingURL=filter-search.pipe.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/http.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -334,36 +375,6 @@ var HttpService = (function () {
     };
     HttpService.prototype.retrieveReview = function (id) {
         return this._http.get('/review/${id}')
-            .map(function (data) { return data.json(); })
-            .toPromise();
-    };
-    HttpService.prototype.createUser = function (user) {
-        return this._http.post("/user", user)
-            .map(function (data) { return data.json(); })
-            .toPromise();
-    };
-    HttpService.prototype.retrieveAll = function () {
-        return this._http.get("/items")
-            .map(function (data) { return data.json(); })
-            .toPromise();
-    };
-    HttpService.prototype.create = function (item) {
-        return this._http.post("/items", item)
-            .map(function (data) { return data.json(); })
-            .toPromise();
-    };
-    HttpService.prototype.retrieveOne = function (id) {
-        return this._http.get("/items/" + id)
-            .map(function (data) { return data.json(); })
-            .toPromise();
-    };
-    HttpService.prototype.update = function (item, id) {
-        return this._http.put("/items/" + id, item)
-            .map(function (data) { return data.json(); })
-            .toPromise();
-    };
-    HttpService.prototype.deleteOne = function (item, id) {
-        return this._http.put('/items/${id}', item)
             .map(function (data) { return data.json(); })
             .toPromise();
     };

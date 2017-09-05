@@ -1,7 +1,8 @@
 <div class = "container">
   <h3>Movies Evan Likes</h3>
+  <input [(ngModel)]="searchText" placeholder="Search by title">
   <ul class="collection" (click) = "get_review(1)">
-    <li class="collection-item" *ngFor='let movie of movies' (click) = "get_review(movie.id)"> {{movie.score*100}}% <a href="{{movie.url}}" target="_blank"> - {{movie.title}}</a> - {{movie.year}}</li>
+    <li class="collection-item" *ngFor='let movie of movies | filter : searchText' (click) = "get_review(movie.id)"> {{movie.score*100}}% <a href="{{movie.url}}" target="_blank"> - {{movie.title}}</a> - {{movie.year}}</li>
   </ul>
 </div>
 

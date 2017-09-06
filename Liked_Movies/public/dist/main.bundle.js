@@ -145,6 +145,7 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__login_login_component__ = __webpack_require__("../../../../../src/app/login/login.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/dashboard/dashboard.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__filter_search_pipe__ = __webpack_require__("../../../../../src/app/filter-search.pipe.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -163,6 +164,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+// import { NgbdAccordionConfig } from './accordion-config';
 var AppModule = (function () {
     function AppModule() {
     }
@@ -181,6 +184,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_3__app_routing_module__["a" /* AppRoutingModule */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
             __WEBPACK_IMPORTED_MODULE_5__angular_http__["a" /* HttpModule */],
+            __WEBPACK_IMPORTED_MODULE_11__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot(),
         ],
         providers: [__WEBPACK_IMPORTED_MODULE_6__http_service__["a" /* HttpService */], __WEBPACK_IMPORTED_MODULE_7_angular2_cookie_services_cookies_service__["CookieService"]],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]]
@@ -199,7 +203,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "h3{\n    text-align: center;\n}", ""]);
+exports.push([module.i, "h3{\n    text-align: center;\n}\n\nimg{\n    height: 100px;\n    width: 70px;\n}\n\n.review{\n    /* margin: 10px; */\n    padding: 10px;\n}", ""]);
 
 // exports
 
@@ -212,7 +216,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class = \"container\">\n  <h3>Movies Evan Likes</h3>\n  <input [(ngModel)]=\"searchText\" placeholder=\"Search by title\">\n  <ul class=\"collection\" (click) = \"get_review(1)\">\n    <li class=\"collection-item\" *ngFor='let movie of movies | filter : searchText' (click) = \"get_review(movie.id)\"> {{movie.score*100}}% <a href=\"{{movie.url}}\" target=\"_blank\"> - {{movie.title}}</a> - {{movie.year}}</li>\n  </ul>\n</div>\n\n\n"
+module.exports = "<div class = \"container\">\n  <h3>Movies Evan Likes</h3>\n  <div>\n      <label>Decade</label>\n      <div>\n          <select [(ngModel)]=\"decade\">\n              <option *ngFor=\"let x of decade\" [value]=\"x\">{{x}}</option>\n            </select>\n      </div>\n  </div>\n  <label for=\"search\">Search: </label><input id= \"search\" [(ngModel)]=\"searchText\" placeholder=\"Search by title\">\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor='let movie of movies | filter : searchText' (click) = \"get_review(movie.id)\"> {{movie.score*100}}% - <a href=\"{{movie.url}}\" target=\"_blank\"> {{movie.title}}</a> - {{movie.year}}</li>\n  </ul>\n\n  <ngb-accordion activeIds=\"config-panel-one\" [closeOthers]=\"true\">\n    <ngb-panel id={{movie.id}} *ngFor='let movie of movies | filter : searchText'>\n        <ng-template ngbPanelTitle>\n            <span (click) = \"get_review(movie.id)\">{{movie.score*100}}% - <a href=\"{{movie.url}}\" target=\"_blank\"> {{movie.title}}</a> - {{movie.year}}</span>\n        </ng-template>\n        <ng-template ngbPanelContent>\n          <div class = 'container review'>\n              <div class=\"row\">\n                  <div class=\"col-xs-2 col-md-2\">                   \n                    <img src=\"https://s3-us-west-1.amazonaws.com/likedmovieimages/2001-a-space-odyssey-1968.jpg\" alt=\"\">\n                  </div>\n                  <div class=\"col-xs-10 col-md-10\">\n                    <p>{{review.review}}</p>   \n                  </div>\n                </div>\n          </div>\n        </ng-template>\n      </ngb-panel>\n    </ngb-accordion>\n</div>\n\n\n"
 
 /***/ }),
 
@@ -244,9 +248,11 @@ var DashboardComponent = (function () {
         var _this = this;
         this._httpService = _httpService;
         this._route = _route;
+        this.movies = [];
+        this.decade = [];
         if (!localStorage['movies']) {
             this._httpService.getData()
-                .then(function (data) { _this.movies = data; console.log("Movies in dasboard", data); if (_this.storageAvailable) {
+                .then(function (data) { _this.movies = data; console.log("Movies in dasboard", data); console.log(_this.compute_decade()); if (_this.storageAvailable) {
                 console.log(true);
                 localStorage.setItem("movies", JSON.stringify(data));
             }
@@ -259,13 +265,35 @@ var DashboardComponent = (function () {
             var movies = localStorage.getItem('movies');
             if (movies) {
                 this.movies = JSON.parse(movies);
+                console.log(this.compute_decade());
             }
         }
     }
     DashboardComponent.prototype.ngOnInit = function () {
     };
-    DashboardComponent.prototype.get_review = function (event) {
-        console.log("movie id is", event);
+    DashboardComponent.prototype.get_review = function (id) {
+        var _this = this;
+        this._httpService.retrieveReview(id)
+            .then(function (data) { _this.review = data; console.log("Review of movie", data); })
+            .catch(function (err) { console.log("error in getting review", err); });
+    };
+    DashboardComponent.prototype.compute_decade = function () {
+        var minYear = this.movies[0].year;
+        var maxYear = this.movies[0].year;
+        for (var i = 0; i < this.movies.length; i++) {
+            if (minYear > this.movies[i].year) {
+                minYear = this.movies[i].year;
+            }
+            if (this.movies[i].year > maxYear) {
+                maxYear = this.movies[i];
+            }
+        }
+        minYear = minYear - (minYear % 10);
+        maxYear = maxYear - (maxYear % 10);
+        for (var i = parseInt(minYear); i <= parseInt(maxYear); i += 10) {
+            this.decade.push(i);
+        }
+        return this.decade;
     };
     DashboardComponent.prototype.storageAvailable = function (type) {
         try {
@@ -295,7 +323,7 @@ DashboardComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-dashboard',
         template: __webpack_require__("../../../../../src/app/dashboard/dashboard.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/dashboard/dashboard.component.css")]
+        styles: [__webpack_require__("../../../../../src/app/dashboard/dashboard.component.css")],
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__http_service__["a" /* HttpService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__http_service__["a" /* HttpService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* ActivatedRoute */]) === "function" && _b || Object])
 ], DashboardComponent);
@@ -374,7 +402,12 @@ var HttpService = (function () {
             .toPromise();
     };
     HttpService.prototype.retrieveReview = function (id) {
-        return this._http.get('/review/${id}')
+        return this._http.get("/review/" + id)
+            .map(function (data) { return data.json(); })
+            .toPromise();
+    };
+    HttpService.prototype.createUser = function (user) {
+        return this._http.post("/user", user)
             .map(function (data) { return data.json(); })
             .toPromise();
     };

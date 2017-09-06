@@ -1,9 +1,37 @@
 <div class = "container">
   <h3>Movies Evan Likes</h3>
-  <input [(ngModel)]="searchText" placeholder="Search by title">
-  <ul class="collection" (click) = "get_review(1)">
-    <li class="collection-item" *ngFor='let movie of movies | filter : searchText' (click) = "get_review(movie.id)"> {{movie.score*100}}% <a href="{{movie.url}}" target="_blank"> - {{movie.title}}</a> - {{movie.year}}</li>
+  <div>
+      <label>Decade</label>
+      <div>
+          <select [(ngModel)]="decade">
+              <option *ngFor="let x of decade" [value]="x">{{x}}</option>
+            </select>
+      </div>
+  </div>
+  <label for="search">Search: </label><input id= "search" [(ngModel)]="searchText" placeholder="Search by title">
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor='let movie of movies | filter : searchText' (click) = "get_review(movie.id)"> {{movie.score*100}}% - <a href="{{movie.url}}" target="_blank"> {{movie.title}}</a> - {{movie.year}}</li>
   </ul>
+
+  <ngb-accordion activeIds="config-panel-one" [closeOthers]="true">
+    <ngb-panel id={{movie.id}} *ngFor='let movie of movies | filter : searchText'>
+        <ng-template ngbPanelTitle>
+            <span (click) = "get_review(movie.id)">{{movie.score*100}}% - <a href="{{movie.url}}" target="_blank"> {{movie.title}}</a> - {{movie.year}}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <div class = 'container review'>
+              <div class="row">
+                  <div class="col-xs-2 col-md-2">                   
+                    <img src="https://s3-us-west-1.amazonaws.com/likedmovieimages/2001-a-space-odyssey-1968.jpg" alt="">
+                  </div>
+                  <div class="col-xs-10 col-md-10">
+                    <p>{{review.review}}</p>   
+                  </div>
+                </div>
+          </div>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
 </div>
 
 

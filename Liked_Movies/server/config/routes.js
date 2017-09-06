@@ -7,6 +7,10 @@ module.exports = function(app){
     movies.show(req,res);
   });
 
+  app.get('/review/:id', function(req, res){
+    movies.getReview(req,res);
+  });
+
   app.all("*", function(req,res){
     res.sendFile(path.resolve("./public/dist/index.html"));
   });

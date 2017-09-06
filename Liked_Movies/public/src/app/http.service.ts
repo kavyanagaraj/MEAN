@@ -14,9 +14,14 @@ export class HttpService {
   }
 
   retrieveReview(id){
-    return this._http.get('/review/${id}')
+    return this._http.get(`/review/${id}`)
     .map(data => data.json())
     .toPromise();
   }
 
+  createUser(user) {
+    return this._http.post(`/user`, user)
+    .map( data => data.json() )
+    .toPromise();
+  }
 }

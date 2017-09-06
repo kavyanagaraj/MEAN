@@ -9,6 +9,8 @@ import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FilterPipe} from './filter-search.pipe';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+// import { NgbdAccordionConfig } from './accordion-config';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { FilterPipe} from './filter-search.pipe';
     AppRoutingModule,
     FormsModule,
     HttpModule,
+    NgbModule.forRoot(),
   ],
   providers: [HttpService, CookieService],
   bootstrap: [AppComponent]

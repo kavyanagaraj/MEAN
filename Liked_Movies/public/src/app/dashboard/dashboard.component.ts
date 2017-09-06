@@ -7,22 +7,24 @@ import 'rxjs/add/operator/switchMap';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  movies;
+  movies = [];
   subscription: Subscription;
   review;
+  decade = [];
   constructor(private _httpService: HttpService, private _route: ActivatedRoute) {
     if(!localStorage['movies']){
       this._httpService.getData()
-      .then( data => { this.movies = data; console.log("Movies in dasboard", data); if(this.storageAvailable){console.log(true); localStorage.setItem("movies", JSON.stringify(data))}else{console.log(false)}})
+      .then( data => { this.movies = data; console.log("Movies in dasboard", data); console.log(this.compute_decade()); if(this.storageAvailable){console.log(true); localStorage.setItem("movies", JSON.stringify(data))}else{console.log(false)}})
       .catch( err => { console.log("error in getting data",err); }); 
     }
     else{
       var movies = localStorage.getItem('movies');
       if(movies){
-        this.movies = JSON.parse(movies);       
+        this.movies = JSON.parse(movies); 
+        console.log(this.compute_decade());      
       }
     }
   }
@@ -30,8 +32,29 @@ export class DashboardComponent implements OnInit {
    ngOnInit(){
   }
 
-  get_review(event: any){
-    console.log("movie id is", event);
+  get_review(id: any){
+    this._httpService.retrieveReview(id)
+    .then( data => { this.review = data; console.log("Review of movie", data); })
+    .catch( err => { console.log("error in getting review",err); }); 
+  }
+
+  compute_decade(){
+    var minYear = this.movies[0].year;
+    var maxYear = this.movies[0].year;
+    for(var i = 0; i < this.movies.length; i++){
+      if(minYear > this.movies[i].year){
+        minYear = this.movies[i].year;
+      }
+      if(this.movies[i].year > maxYear){
+        maxYear = this.movies[i];
+      }
+    }
+    minYear = minYear - (minYear % 10);
+    maxYear = maxYear - (maxYear % 10);
+    for(var i = parseInt(minYear); i <= parseInt(maxYear); i += 10){
+      this.decade.push(i);
+    }
+    return this.decade;
   }
 
   storageAvailable(type) {

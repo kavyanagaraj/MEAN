@@ -5,13 +5,10 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 var path = require('path');
-
 app.use(express.static(path.join(__dirname, '/public/dist')));
 app.use(express.static(path.join(__dirname, './static')));
-app.set('views', path.join(__dirname, './views'));
-app.set('view engine', 'ejs');
-require('./server/config/mongoose.js');
 
+//Routes file path
 var routes_setter = require('./server/config/routes.js');
 
 routes_setter(app);

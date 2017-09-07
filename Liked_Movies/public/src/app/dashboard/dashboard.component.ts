@@ -11,42 +11,63 @@ import 'rxjs/add/operator/switchMap';
 })
 export class DashboardComponent implements OnInit {
   movies = [];
-  subscription: Subscription;
   review;
   decade = [];
   selectedDecade;
-  constructor(private _httpService: HttpService, private _route: ActivatedRoute) {
+  error;
+  constructor(private _httpService: HttpService) {
+  }
+
+   ngOnInit(){
+    //Checking if data exists in local storage. If it doesn't exist then sending a request to the server to get data
     if(!localStorage['movies']){
-      this._httpService.getData()
-      .then( data => { this.movies = data; console.log("Movies in dasboard", data); console.log(this.compute_decade()); if(this.storageAvailable){console.log(true); localStorage.setItem("movies", JSON.stringify(data))}else{console.log(false)}})
-      .catch( err => { console.log("error in getting data",err); }); 
+      this._httpService.getMovies()
+      .then( data =>  { this.error = '' 
+                        this.movies = data; 
+                        this.compute_decade();
+                        if(this.storageAvailable){
+                          localStorage.setItem("movies", JSON.stringify(data))
+                        }
+                      })
+      .catch( err => {  console.log("error in getting data",err); 
+                        this.error = err
+                      }); 
     }
     else{
       var movies = localStorage.getItem('movies');
       if(movies){
         this.movies = JSON.parse(movies); 
-        console.log(this.compute_decade());      
+        this.compute_decade();      
       }
     }
   }
 
-   ngOnInit(){
-  }
-
+  //Triggers when the list is clicked to get review of a movie
   get_review(id: any){
-    console.log("movie id", id)
     this._httpService.retrieveReview(id)
-    .then( data => { this.review = data; console.log("Review of movie", data); })
-    .catch( err => { console.log("error in getting review",err); }); 
+    .then( data => {  this.review = data; 
+                      this.error = '' 
+                    })
+    .catch( err => {  this.error = err;
+                      console.log("error in getting data",err);
+                   }); 
   }
 
+  //To open rotten tomato site in a new tab when link is clicked
   goto_url(url: string){
     window.open(url, "_blank");
   }
 
+  //Sets the decade to be filtered on click
+  filter_decade(decade){
+    this.selectedDecade = decade;
+  }
+
+  //Computes the decade array for filter
   compute_decade(){
     var minYear = this.movies[0].year;
     var maxYear = this.movies[0].year;
+    //Gets the minimum and maximum year in the list
     for(var i = 0; i < this.movies.length; i++){
       if(minYear > this.movies[i].year){
         minYear = this.movies[i].year;
@@ -55,14 +76,17 @@ export class DashboardComponent implements OnInit {
         maxYear = this.movies[i];
       }
     }
+    //Gives minYear and maxYear
     minYear = minYear - (minYear % 10);
     maxYear = maxYear - (maxYear % 10);
+    //Creates the decade array
     for(var i = parseInt(minYear); i <= parseInt(maxYear); i += 10){
       this.decade.push(i);
     }
     return this.decade;
   }
 
+  //Checking if local storage is available
   storageAvailable(type) {
     try {
         var storage = window[type],

@@ -19,8 +19,7 @@ webpackEmptyContext.id = "../../../../../src async recursive";
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_login_component__ = __webpack_require__("../../../../../src/app/login/login.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/dashboard/dashboard.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/dashboard/dashboard.component.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppRoutingModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -31,13 +30,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
 var routes = [
-    { path: '', pathMatch: 'full', redirectTo: '/login' },
-    { path: 'login', component: __WEBPACK_IMPORTED_MODULE_2__login_login_component__["a" /* LoginComponent */] },
-    { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_3__dashboard_dashboard_component__["a" /* DashboardComponent */] },
-    { path: 'logout', redirectTo: 'login' },
-    { path: '**', component: __WEBPACK_IMPORTED_MODULE_3__dashboard_dashboard_component__["a" /* DashboardComponent */] }
+    { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
+    { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_2__dashboard_dashboard_component__["a" /* DashboardComponent */] },
+    { path: '**', component: __WEBPACK_IMPORTED_MODULE_2__dashboard_dashboard_component__["a" /* DashboardComponent */] }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
@@ -45,7 +41,7 @@ var AppRoutingModule = (function () {
     return AppRoutingModule;
 }());
 AppRoutingModule = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["b" /* NgModule */])({
         imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* RouterModule */].forRoot(routes)],
         exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* RouterModule */]]
     })
@@ -85,8 +81,6 @@ module.exports = "<router-outlet></router-outlet>"
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_cookie_core__ = __webpack_require__("../../../../angular2-cookie/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_cookie_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular2_cookie_core__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -98,33 +92,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-
 var AppComponent = (function () {
-    function AppComponent(_cookieService) {
-        this._cookieService = _cookieService;
+    function AppComponent() {
         this.title = 'app';
-        this.key = this._cookieService.get("key");
     }
-    AppComponent.prototype.logout = function () {
-        console.log("The key is:", (this._cookieService.get("key")));
-        this._cookieService.removeAll();
-        console.log("The key is empty:", (this._cookieService.get("key")));
-    };
     AppComponent.prototype.ngOnInit = function () {
-        this.key = this._cookieService.get("key");
     };
     return AppComponent;
 }());
 AppComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_0" /* Component */])({
         selector: 'app-root',
         template: __webpack_require__("../../../../../src/app/app.component.html"),
         styles: [__webpack_require__("../../../../../src/app/app.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_angular2_cookie_core__["CookieService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_angular2_cookie_core__["CookieService"]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [])
 ], AppComponent);
 
-var _a;
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
@@ -140,13 +124,10 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__http_service__ = __webpack_require__("../../../../../src/app/http.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular2_cookie_services_cookies_service__ = __webpack_require__("../../../../angular2-cookie/services/cookies.service.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular2_cookie_services_cookies_service___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_angular2_cookie_services_cookies_service__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__login_login_component__ = __webpack_require__("../../../../../src/app/login/login.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/dashboard/dashboard.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__filter_search_pipe__ = __webpack_require__("../../../../../src/app/filter-search.pipe.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__decade_filter_pipe__ = __webpack_require__("../../../../../src/app/decade-filter.pipe.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/dashboard/dashboard.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__filter_search_pipe__ = __webpack_require__("../../../../../src/app/filter-search.pipe.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__decade_filter_pipe__ = __webpack_require__("../../../../../src/app/decade-filter.pipe.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -165,31 +146,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
-
-// import { NgbdAccordionConfig } from './accordion-config';
 var AppModule = (function () {
     function AppModule() {
     }
     return AppModule;
 }());
 AppModule = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["b" /* NgModule */])({
         declarations: [
             __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */],
-            __WEBPACK_IMPORTED_MODULE_9__dashboard_dashboard_component__["a" /* DashboardComponent */],
-            __WEBPACK_IMPORTED_MODULE_8__login_login_component__["a" /* LoginComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__filter_search_pipe__["a" /* FilterPipe */],
-            __WEBPACK_IMPORTED_MODULE_11__decade_filter_pipe__["a" /* DecadeFilterPipe */]
+            __WEBPACK_IMPORTED_MODULE_7__dashboard_dashboard_component__["a" /* DashboardComponent */],
+            __WEBPACK_IMPORTED_MODULE_8__filter_search_pipe__["a" /* FilterPipe */],
+            __WEBPACK_IMPORTED_MODULE_9__decade_filter_pipe__["a" /* DecadeFilterPipe */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
             __WEBPACK_IMPORTED_MODULE_3__app_routing_module__["a" /* AppRoutingModule */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
             __WEBPACK_IMPORTED_MODULE_5__angular_http__["a" /* HttpModule */],
-            __WEBPACK_IMPORTED_MODULE_12__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot(),
+            __WEBPACK_IMPORTED_MODULE_10__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot(),
         ],
-        providers: [__WEBPACK_IMPORTED_MODULE_6__http_service__["a" /* HttpService */], __WEBPACK_IMPORTED_MODULE_7_angular2_cookie_services_cookies_service__["CookieService"]],
+        providers: [__WEBPACK_IMPORTED_MODULE_6__http_service__["a" /* HttpService */]],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]]
     })
 ], AppModule);
@@ -206,7 +183,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "h1{\n    text-align: center;\n}\n\nimg{\n    height: 100px;\n    width: 70px;\n}\n\n.review{\n    /* margin: 10px; */\n    padding: 10px;\n}\n\n.search{\n    margin-bottom: 10px;\n}\n", ""]);
+exports.push([module.i, "#movie_image{\n    height: 100px;\n    width: 70px;\n}\n\n.review{\n    padding: 10px;\n}\n\n.decade{\n    text-align: center;\n}\n\n#error{\n    text-align: center;\n}", ""]);
 
 // exports
 
@@ -219,7 +196,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default\">\n    <div class=\"container-fluid\">\n      <!-- Brand and toggle get grouped for better mobile display -->\n      <div class=\"navbar-header\">\n        <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n          <span class=\"sr-only\">Toggle navigation</span>\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n        </button>\n        <a class=\"navbar-brand\" href=\"#\">Movies Evan Likes</a>\n      </div>\n  \n      <!-- Collect the nav links, forms, and other content for toggling -->\n      <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n        <ul class=\"nav navbar-nav navbar-right\">\n          <!-- <li><a href=\"#\">Link</a></li> -->\n          <form class=\"navbar-form navbar-left\">\n                <input type=\"text\" [(ngModel)]=\"searchText\" name = \"search\" #search = 'ngModel' class=\"form-control\" placeholder=\"Search by title\">\n            </form>\n          <li class=\"dropdown\">\n            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">Decade <span class=\"caret\"></span></a>\n            <!-- <ul class=\"dropdown-menu\">\n              <li *ngFor=\"let x of decade\">{{x}}</li>\n            </ul> -->\n          </li>\n        </ul>\n      </div><!-- /.navbar-collapse -->\n    </div><!-- /.container-fluid -->\n  </nav>\n<div class = \"container\">\n  <!-- <h1>Movies Evan Likes</h1> -->\n  <div>\n      <label>Decade</label>\n      <div>\n          <select [(ngModel)]=\"selectedDecade\">\n              <option *ngFor=\"let x of decade\" [value]=\"x\">{{x}}</option>\n            </select>\n      </div>\n  </div>\n  <!-- <div class=\"input-group search\">\n      <span class=\"glyphicon glyphicon-search input-group-addon\" aria-hidden=\"true\"></span>\n      <input type=\"text\" [(ngModel)]=\"searchText\" class=\"form-control\" placeholder=\"Search by title\" aria-describedby=\"basic-addon1\">\n  </div> -->\n  <!-- <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor='let movie of movies | filter : searchText | decadefilter : selectedDecade' (click) = \"get_review(movie.id)\"> {{movie.score*100}}% - <a href=\"{{movie.url}}\" target=\"_blank\"> {{movie.title}}</a> - {{movie.year}}</li>\n  </ul> -->\n\n  <ngb-accordion activeIds=\"config-panel-one\" [closeOthers]=\"true\">\n    <ngb-panel id={{movie.id}} *ngFor='let movie of movies | filter : searchText | decadefilter : selectedDecade'>       \n            <ng-template ngbPanelTitle>\n                <li class=\"list-group-item\" (click) = \"get_review(movie.id)\"><span (click) = \"goto_url(movie.url)\">{{movie.score*100}}% - <a href=\"{{movie.url}}\" target=\"_blank\"> {{movie.title}}</a> - {{movie.year}}</span></li>\n            </ng-template>\n        <ng-template ngbPanelContent>\n          <div class = 'container review' *ngIf = review>\n              <div class=\"row\">\n                  <div class=\"col-xs-2 col-md-1\">                   \n                    <img src={{review.image_url}} alt=\":(\">\n                  </div>\n                  <div class=\"col-xs-10 col-md-11\">\n                    <p>{{review.review}}</p>\n                    <a href=\"{{movies[review['movie-id'] - 1]['url']}}\" target=\"_blank\">Link to rotten tomato</a>\n                  </div>\n                </div>\n          </div>\n        </ng-template>\n      </ngb-panel>\n    </ngb-accordion>\n</div>\n\n\n"
+module.exports = "<nav class=\"navbar navbar-default\">\n  <div class=\"container-fluid\">\n    <!-- Brand and toggle get grouped for better mobile display -->\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand\" href=\"#\">Movies Evan Likes</a>\n    </div>\n\n    <!-- Collect the nav links, forms, and other content for toggling -->\n    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n      <ul class=\"nav navbar-nav navbar-right\">\n        <form class=\"navbar-form navbar-left\">\n          <!-- Input search two way bound as searchText to filter the list -->\n          <input type=\"text\" [(ngModel)]=\"searchText\" name = \"search\" #search = 'ngModel' class=\"form-control\" placeholder=\"Search by title\">\n        </form>\n        <li class=\"dropdown\">\n          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">Decade <span class=\"caret\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <!-- Dropdown to get the decades -->\n            <li  class=\"list-group-item decade\" *ngFor=\"let x of decade\" (click)=\"filter_decade(x)\">{{x}}</li>\n          </ul>\n        </li>\n      </ul>\n    </div><!-- /.navbar-collapse -->\n  </div><!-- /.container-fluid -->\n</nav>\n\n<!-- Main Content -->\n<div class = \"container\">\n    <h2 *ngIf = error id = \"error\"> {{error.status}} - {{error.statusText}}</h2>\n  <!-- Accordian to show title of the movie and review on click -->\n  <!-- Using config-panel-one and closeOthers for only one review to be open at a time -->\n  <ngb-accordion activeIds=\"config-panel-one\" [closeOthers]=\"true\">\n    <!-- Looping to get the list of movies -->\n    <!-- Using pipe custom filter to filter the list based on search and decadefilter to filter the list based on the decade chosen  -->\n    <ngb-panel id={{movie.id}} *ngFor='let movie of movies | filter : searchText | decadefilter : selectedDecade'>\n        <!-- Title for the accordian which opens the rotten tomato site for that movie  -->\n        <!-- List panel on click gets and shows the review in ngbPanelContent-->\n        <ng-template ngbPanelTitle>\n            <li class=\"list-group-item\" (click) = \"get_review(movie.id)\"><span (click) = \"goto_url(movie.url)\">{{movie.score*100}}% - {{movie.title}} - {{movie.year}}</span></li>\n        </ng-template>\n        <!-- To show the review and the image -->\n        <ng-template ngbPanelContent>\n          <div class = 'review' *ngIf = review>\n            <div class=\"row\">\n              <!-- Using the grid system to make it responsive -->\n              <div class=\"col-xs-2 col-md-1\">                   \n                <img src={{review.image_url}} id = \"movie_image\" alt=\":(\">\n              </div>\n              <div class=\"col-xs-10 col-md-11\">\n                <p>{{review.review}}</p>\n              </div>\n            </div>\n          </div>\n        </ng-template>\n      </ngb-panel>\n    </ngb-accordion>\n</div>\n\n\n"
 
 /***/ }),
 
@@ -229,9 +206,8 @@ module.exports = "<nav class=\"navbar navbar-default\">\n    <div class=\"contai
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__http_service__ = __webpack_require__("../../../../../src/app/http.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_switchMap__ = __webpack_require__("../../../../rxjs/add/operator/switchMap.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_switchMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_switchMap__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_switchMap__ = __webpack_require__("../../../../rxjs/add/operator/switchMap.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_switchMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_switchMap__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DashboardComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -245,48 +221,64 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var DashboardComponent = (function () {
-    function DashboardComponent(_httpService, _route) {
-        var _this = this;
+    function DashboardComponent(_httpService) {
         this._httpService = _httpService;
-        this._route = _route;
         this.movies = [];
         this.decade = [];
+    }
+    DashboardComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        //Checking if data exists in local storage. If it doesn't exist then sending a request to the server to get data
         if (!localStorage['movies']) {
-            this._httpService.getData()
-                .then(function (data) { _this.movies = data; console.log("Movies in dasboard", data); console.log(_this.compute_decade()); if (_this.storageAvailable) {
-                console.log(true);
-                localStorage.setItem("movies", JSON.stringify(data));
-            }
-            else {
-                console.log(false);
-            } })
-                .catch(function (err) { console.log("error in getting data", err); });
+            this._httpService.getMovies()
+                .then(function (data) {
+                _this.error = '';
+                _this.movies = data;
+                _this.compute_decade();
+                if (_this.storageAvailable) {
+                    localStorage.setItem("movies", JSON.stringify(data));
+                }
+            })
+                .catch(function (err) {
+                console.log("error in getting data", err);
+                _this.error = err;
+            });
         }
         else {
             var movies = localStorage.getItem('movies');
             if (movies) {
                 this.movies = JSON.parse(movies);
-                console.log(this.compute_decade());
+                this.compute_decade();
             }
         }
-    }
-    DashboardComponent.prototype.ngOnInit = function () {
     };
+    //Triggers when the list is clicked to get review of a movie
     DashboardComponent.prototype.get_review = function (id) {
         var _this = this;
-        console.log("movie id", id);
         this._httpService.retrieveReview(id)
-            .then(function (data) { _this.review = data; console.log("Review of movie", data); })
-            .catch(function (err) { console.log("error in getting review", err); });
+            .then(function (data) {
+            _this.review = data;
+            _this.error = '';
+        })
+            .catch(function (err) {
+            _this.error = err;
+            console.log("error in getting data", err);
+        });
     };
+    //To open rotten tomato site in a new tab when link is clicked
     DashboardComponent.prototype.goto_url = function (url) {
         window.open(url, "_blank");
     };
+    //Sets the decade to be filtered on click
+    DashboardComponent.prototype.filter_decade = function (decade) {
+        this.selectedDecade = decade;
+    };
+    //Computes the decade array for filter
     DashboardComponent.prototype.compute_decade = function () {
         var minYear = this.movies[0].year;
         var maxYear = this.movies[0].year;
+        //Gets the minimum and maximum year in the list
         for (var i = 0; i < this.movies.length; i++) {
             if (minYear > this.movies[i].year) {
                 minYear = this.movies[i].year;
@@ -295,13 +287,16 @@ var DashboardComponent = (function () {
                 maxYear = this.movies[i];
             }
         }
+        //Gives minYear and maxYear
         minYear = minYear - (minYear % 10);
         maxYear = maxYear - (maxYear % 10);
+        //Creates the decade array
         for (var i = parseInt(minYear); i <= parseInt(maxYear); i += 10) {
             this.decade.push(i);
         }
         return this.decade;
     };
+    //Checking if local storage is available
     DashboardComponent.prototype.storageAvailable = function (type) {
         try {
             var storage = window[type], x = '__storage_test__';
@@ -327,15 +322,15 @@ var DashboardComponent = (function () {
     return DashboardComponent;
 }());
 DashboardComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_0" /* Component */])({
         selector: 'app-dashboard',
         template: __webpack_require__("../../../../../src/app/dashboard/dashboard.component.html"),
         styles: [__webpack_require__("../../../../../src/app/dashboard/dashboard.component.css")],
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__http_service__["a" /* HttpService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__http_service__["a" /* HttpService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* ActivatedRoute */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__http_service__["a" /* HttpService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__http_service__["a" /* HttpService */]) === "function" && _a || Object])
 ], DashboardComponent);
 
-var _a, _b;
+var _a;
 //# sourceMappingURL=dashboard.component.js.map
 
 /***/ }),
@@ -352,6 +347,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+//Custom decade filter pipe to filter the movies in the input decade
 
 var DecadeFilterPipe = (function () {
     function DecadeFilterPipe() {
@@ -362,14 +358,15 @@ var DecadeFilterPipe = (function () {
         if (!decade)
             return items;
         decade = parseInt(decade);
+        //Filters items where items year is within a decade
         return items.filter(function (item) {
-            return (item.year > decade && item.year < decade + 10);
+            return (item.year >= decade && item.year < decade + 10);
         });
     };
     return DecadeFilterPipe;
 }());
 DecadeFilterPipe = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Y" /* Pipe */])({
         name: 'decadefilter'
     })
 ], DecadeFilterPipe);
@@ -390,24 +387,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+//Custom filter pipe to filter the movies matching the movie title and the searchtext
 
 var FilterPipe = (function () {
     function FilterPipe() {
     }
-    FilterPipe.prototype.transform = function (items, searchText) {
+    FilterPipe.prototype.transform = function (items, search_text) {
         if (!items)
             return [];
-        if (!searchText || searchText.length < 2)
+        //Checking for search text length to filter
+        if (!search_text || search_text.length < 2)
             return items;
-        searchText = searchText.toLowerCase();
+        search_text = search_text.toLowerCase();
+        //Filters all the items whose title includes the search text
         return items.filter(function (item) {
-            return item.title.toString().toLowerCase().includes(searchText);
+            return item.title.toString().toLowerCase().includes(search_text);
         });
     };
     return FilterPipe;
 }());
 FilterPipe = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Y" /* Pipe */])({
         name: 'filter'
     })
 ], FilterPipe);
@@ -441,113 +441,27 @@ var HttpService = (function () {
     function HttpService(_http) {
         this._http = _http;
     }
-    HttpService.prototype.getData = function () {
+    //Service to make a get request to the route /movies to retrieve all the movies
+    HttpService.prototype.getMovies = function () {
         return this._http.get('/movies')
             .map(function (data) { return data.json(); })
             .toPromise();
     };
+    //Service to make a http request to the route /review/id to retrieve the review of the movie with the id in the url
     HttpService.prototype.retrieveReview = function (id) {
         return this._http.get("/review/" + id)
-            .map(function (data) { return data.json(); })
-            .toPromise();
-    };
-    HttpService.prototype.createUser = function (user) {
-        return this._http.post("/user", user)
             .map(function (data) { return data.json(); })
             .toPromise();
     };
     return HttpService;
 }());
 HttpService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
 ], HttpService);
 
 var _a;
 //# sourceMappingURL=http.service.js.map
-
-/***/ }),
-
-/***/ "../../../../../src/app/login/login.component.css":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/login/login.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  Please enter your name to join!\n</p>\n\n<form #loginForm = 'ngForm' (submit)='login(loginForm)'>\n<label for=\"username\">Username:</label>\n<input type=\"text\" name=\"username\" id = 'username' required minlength = '4' #username = 'ngModel' [(ngModel)]=\"user.username\"><br>\n<input type=\"submit\" class=\"waves-effect waves-light btn\" [disabled] = '!loginForm.valid'>\n</form>\n"
-
-/***/ }),
-
-/***/ "../../../../../src/app/login/login.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_cookie_core__ = __webpack_require__("../../../../angular2-cookie/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular2_cookie_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular2_cookie_core__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__http_service__ = __webpack_require__("../../../../../src/app/http.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var LoginComponent = (function () {
-    function LoginComponent(_cookieService, _httpService, router) {
-        this._cookieService = _cookieService;
-        this._httpService = _httpService;
-        this.router = router;
-        this.user = {
-            username: ''
-        };
-    }
-    LoginComponent.prototype.ngOnInit = function () {
-    };
-    LoginComponent.prototype.login = function (form) {
-        this._httpService.createUser(this.user)
-            .then(function (data) { console.log(data); })
-            .catch(function (err) { console.log(err); });
-        this._cookieService.put("key", this.user.username);
-        console.log(this._cookieService.get("key"));
-        this.router.navigate(['/dashboard']);
-    };
-    return LoginComponent;
-}());
-LoginComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'app-login',
-        template: __webpack_require__("../../../../../src/app/login/login.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/login/login.component.css")]
-    }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_angular2_cookie_core__["CookieService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_angular2_cookie_core__["CookieService"]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__http_service__["a" /* HttpService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__http_service__["a" /* HttpService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */]) === "function" && _c || Object])
-], LoginComponent);
-
-var _a, _b, _c;
-//# sourceMappingURL=login.component.js.map
 
 /***/ }),
 
@@ -582,7 +496,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["enableProdMode"])();
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["a" /* enableProdMode */])();
 }
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__app_app_module__["a" /* AppModule */]);
 //# sourceMappingURL=main.js.map

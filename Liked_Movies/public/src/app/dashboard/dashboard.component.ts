@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
   subscription: Subscription;
   review;
   decade = [];
+  selectedDecade;
   constructor(private _httpService: HttpService, private _route: ActivatedRoute) {
     if(!localStorage['movies']){
       this._httpService.getData()
@@ -33,9 +34,14 @@ export class DashboardComponent implements OnInit {
   }
 
   get_review(id: any){
+    console.log("movie id", id)
     this._httpService.retrieveReview(id)
     .then( data => { this.review = data; console.log("Review of movie", data); })
     .catch( err => { console.log("error in getting review",err); }); 
+  }
+
+  goto_url(url: string){
+    window.open(url, "_blank");
   }
 
   compute_decade(){

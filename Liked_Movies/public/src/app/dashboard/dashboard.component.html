@@ -1,23 +1,56 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Movies Evan Likes</a>
+      </div>
+  
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <!-- <li><a href="#">Link</a></li> -->
+          <form class="navbar-form navbar-left">
+                <input type="text" [(ngModel)]="searchText" name = "search" #search = 'ngModel' class="form-control" placeholder="Search by title">
+            </form>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Decade <span class="caret"></span></a>
+            <!-- <ul class="dropdown-menu">
+              <li *ngFor="let x of decade">{{x}}</li>
+            </ul> -->
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
 <div class = "container">
-  <h3>Movies Evan Likes</h3>
+  <!-- <h1>Movies Evan Likes</h1> -->
   <div>
       <label>Decade</label>
       <div>
-          <select [(ngModel)]="decade">
+          <select [(ngModel)]="selectedDecade">
               <option *ngFor="let x of decade" [value]="x">{{x}}</option>
             </select>
       </div>
   </div>
-  <label for="search">Search: </label><input id= "search" [(ngModel)]="searchText" placeholder="Search by title">
-  <ul class="list-group">
-    <li class="list-group-item" *ngFor='let movie of movies | filter : searchText' (click) = "get_review(movie.id)"> {{movie.score*100}}% - <a href="{{movie.url}}" target="_blank"> {{movie.title}}</a> - {{movie.year}}</li>
-  </ul>
+  <!-- <div class="input-group search">
+      <span class="glyphicon glyphicon-search input-group-addon" aria-hidden="true"></span>
+      <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Search by title" aria-describedby="basic-addon1">
+  </div> -->
+  <!-- <ul class="list-group">
+    <li class="list-group-item" *ngFor='let movie of movies | filter : searchText | decadefilter : selectedDecade' (click) = "get_review(movie.id)"> {{movie.score*100}}% - <a href="{{movie.url}}" target="_blank"> {{movie.title}}</a> - {{movie.year}}</li>
+  </ul> -->
 
   <ngb-accordion activeIds="config-panel-one" [closeOthers]="true">
-    <ngb-panel id={{movie.id}} *ngFor='let movie of movies | filter : searchText'>
-        <ng-template ngbPanelTitle>
-            <span (click) = "get_review(movie.id)">{{movie.score*100}}% - <a href="{{movie.url}}" target="_blank"> {{movie.title}}</a> - {{movie.year}}</span>
-        </ng-template>
+    <ngb-panel id={{movie.id}} *ngFor='let movie of movies | filter : searchText | decadefilter : selectedDecade'>       
+            <ng-template ngbPanelTitle>
+                <li class="list-group-item" (click) = "get_review(movie.id)"><span (click) = "goto_url(movie.url)">{{movie.score*100}}% - <a href="{{movie.url}}" target="_blank"> {{movie.title}}</a> - {{movie.year}}</span></li>
+            </ng-template>
         <ng-template ngbPanelContent>
           <div class = 'container review' *ngIf = review>
               <div class="row">
@@ -25,7 +58,8 @@
                     <img src={{review.image_url}} alt=":(">
                   </div>
                   <div class="col-xs-10 col-md-11">
-                    <p>{{review.review}}</p>   
+                    <p>{{review.review}}</p>
+                    <a href="{{movies[review['movie-id'] - 1]['url']}}" target="_blank">Link to rotten tomato</a>
                   </div>
                 </div>
           </div>

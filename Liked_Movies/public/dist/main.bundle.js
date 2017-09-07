@@ -76,7 +76,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n<a [routerLink] = \"['/dashboard']\"> Dashboard </a> |\n<a [routerLink] = \"['/logout']\" (click)=\"logout()\"> Logout </a>\n</p>\n<router-outlet></router-outlet>"
+module.exports = "<router-outlet></router-outlet>"
 
 /***/ }),
 
@@ -145,7 +145,8 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__login_login_component__ = __webpack_require__("../../../../../src/app/login/login.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/dashboard/dashboard.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__filter_search_pipe__ = __webpack_require__("../../../../../src/app/filter-search.pipe.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__decade_filter_pipe__ = __webpack_require__("../../../../../src/app/decade-filter.pipe.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -153,6 +154,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -177,14 +179,15 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */],
             __WEBPACK_IMPORTED_MODULE_9__dashboard_dashboard_component__["a" /* DashboardComponent */],
             __WEBPACK_IMPORTED_MODULE_8__login_login_component__["a" /* LoginComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__filter_search_pipe__["a" /* FilterPipe */]
+            __WEBPACK_IMPORTED_MODULE_10__filter_search_pipe__["a" /* FilterPipe */],
+            __WEBPACK_IMPORTED_MODULE_11__decade_filter_pipe__["a" /* DecadeFilterPipe */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
             __WEBPACK_IMPORTED_MODULE_3__app_routing_module__["a" /* AppRoutingModule */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
             __WEBPACK_IMPORTED_MODULE_5__angular_http__["a" /* HttpModule */],
-            __WEBPACK_IMPORTED_MODULE_11__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot(),
+            __WEBPACK_IMPORTED_MODULE_12__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot(),
         ],
         providers: [__WEBPACK_IMPORTED_MODULE_6__http_service__["a" /* HttpService */], __WEBPACK_IMPORTED_MODULE_7_angular2_cookie_services_cookies_service__["CookieService"]],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]]
@@ -203,7 +206,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "h3{\n    text-align: center;\n}\n\nimg{\n    height: 100px;\n    width: 70px;\n}\n\n.review{\n    /* margin: 10px; */\n    padding: 10px;\n}", ""]);
+exports.push([module.i, "h1{\n    text-align: center;\n}\n\nimg{\n    height: 100px;\n    width: 70px;\n}\n\n.review{\n    /* margin: 10px; */\n    padding: 10px;\n}\n\n.search{\n    margin-bottom: 10px;\n}\n", ""]);
 
 // exports
 
@@ -216,7 +219,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class = \"container\">\n  <h3>Movies Evan Likes</h3>\n  <div>\n      <label>Decade</label>\n      <div>\n          <select [(ngModel)]=\"decade\">\n              <option *ngFor=\"let x of decade\" [value]=\"x\">{{x}}</option>\n            </select>\n      </div>\n  </div>\n  <label for=\"search\">Search: </label><input id= \"search\" [(ngModel)]=\"searchText\" placeholder=\"Search by title\">\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor='let movie of movies | filter : searchText' (click) = \"get_review(movie.id)\"> {{movie.score*100}}% - <a href=\"{{movie.url}}\" target=\"_blank\"> {{movie.title}}</a> - {{movie.year}}</li>\n  </ul>\n\n  <ngb-accordion activeIds=\"config-panel-one\" [closeOthers]=\"true\">\n    <ngb-panel id={{movie.id}} *ngFor='let movie of movies | filter : searchText'>\n        <ng-template ngbPanelTitle>\n            <span (click) = \"get_review(movie.id)\">{{movie.score*100}}% - <a href=\"{{movie.url}}\" target=\"_blank\"> {{movie.title}}</a> - {{movie.year}}</span>\n        </ng-template>\n        <ng-template ngbPanelContent>\n          <div class = 'container review' *ngIf = review>\n              <div class=\"row\">\n                  <div class=\"col-xs-2 col-md-1\">                   \n                    <img src={{review.image_url}} alt=\":(\">\n                  </div>\n                  <div class=\"col-xs-10 col-md-11\">\n                    <p>{{review.review}}</p>   \n                  </div>\n                </div>\n          </div>\n        </ng-template>\n      </ngb-panel>\n    </ngb-accordion>\n</div>\n\n\n"
+module.exports = "<nav class=\"navbar navbar-default\">\n    <div class=\"container-fluid\">\n      <!-- Brand and toggle get grouped for better mobile display -->\n      <div class=\"navbar-header\">\n        <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n          <span class=\"sr-only\">Toggle navigation</span>\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n          <span class=\"icon-bar\"></span>\n        </button>\n        <a class=\"navbar-brand\" href=\"#\">Movies Evan Likes</a>\n      </div>\n  \n      <!-- Collect the nav links, forms, and other content for toggling -->\n      <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n        <ul class=\"nav navbar-nav navbar-right\">\n          <!-- <li><a href=\"#\">Link</a></li> -->\n          <form class=\"navbar-form navbar-left\">\n                <input type=\"text\" [(ngModel)]=\"searchText\" name = \"search\" #search = 'ngModel' class=\"form-control\" placeholder=\"Search by title\">\n            </form>\n          <li class=\"dropdown\">\n            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">Decade <span class=\"caret\"></span></a>\n            <!-- <ul class=\"dropdown-menu\">\n              <li *ngFor=\"let x of decade\">{{x}}</li>\n            </ul> -->\n          </li>\n        </ul>\n      </div><!-- /.navbar-collapse -->\n    </div><!-- /.container-fluid -->\n  </nav>\n<div class = \"container\">\n  <!-- <h1>Movies Evan Likes</h1> -->\n  <div>\n      <label>Decade</label>\n      <div>\n          <select [(ngModel)]=\"selectedDecade\">\n              <option *ngFor=\"let x of decade\" [value]=\"x\">{{x}}</option>\n            </select>\n      </div>\n  </div>\n  <!-- <div class=\"input-group search\">\n      <span class=\"glyphicon glyphicon-search input-group-addon\" aria-hidden=\"true\"></span>\n      <input type=\"text\" [(ngModel)]=\"searchText\" class=\"form-control\" placeholder=\"Search by title\" aria-describedby=\"basic-addon1\">\n  </div> -->\n  <!-- <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor='let movie of movies | filter : searchText | decadefilter : selectedDecade' (click) = \"get_review(movie.id)\"> {{movie.score*100}}% - <a href=\"{{movie.url}}\" target=\"_blank\"> {{movie.title}}</a> - {{movie.year}}</li>\n  </ul> -->\n\n  <ngb-accordion activeIds=\"config-panel-one\" [closeOthers]=\"true\">\n    <ngb-panel id={{movie.id}} *ngFor='let movie of movies | filter : searchText | decadefilter : selectedDecade'>       \n            <ng-template ngbPanelTitle>\n                <li class=\"list-group-item\" (click) = \"get_review(movie.id)\"><span (click) = \"goto_url(movie.url)\">{{movie.score*100}}% - <a href=\"{{movie.url}}\" target=\"_blank\"> {{movie.title}}</a> - {{movie.year}}</span></li>\n            </ng-template>\n        <ng-template ngbPanelContent>\n          <div class = 'container review' *ngIf = review>\n              <div class=\"row\">\n                  <div class=\"col-xs-2 col-md-1\">                   \n                    <img src={{review.image_url}} alt=\":(\">\n                  </div>\n                  <div class=\"col-xs-10 col-md-11\">\n                    <p>{{review.review}}</p>\n                    <a href=\"{{movies[review['movie-id'] - 1]['url']}}\" target=\"_blank\">Link to rotten tomato</a>\n                  </div>\n                </div>\n          </div>\n        </ng-template>\n      </ngb-panel>\n    </ngb-accordion>\n</div>\n\n\n"
 
 /***/ }),
 
@@ -273,9 +276,13 @@ var DashboardComponent = (function () {
     };
     DashboardComponent.prototype.get_review = function (id) {
         var _this = this;
+        console.log("movie id", id);
         this._httpService.retrieveReview(id)
             .then(function (data) { _this.review = data; console.log("Review of movie", data); })
             .catch(function (err) { console.log("error in getting review", err); });
+    };
+    DashboardComponent.prototype.goto_url = function (url) {
+        window.open(url, "_blank");
     };
     DashboardComponent.prototype.compute_decade = function () {
         var minYear = this.movies[0].year;
@@ -330,6 +337,44 @@ DashboardComponent = __decorate([
 
 var _a, _b;
 //# sourceMappingURL=dashboard.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/decade-filter.pipe.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DecadeFilterPipe; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var DecadeFilterPipe = (function () {
+    function DecadeFilterPipe() {
+    }
+    DecadeFilterPipe.prototype.transform = function (items, decade) {
+        if (!items)
+            return [];
+        if (!decade)
+            return items;
+        decade = parseInt(decade);
+        return items.filter(function (item) {
+            return (item.year > decade && item.year < decade + 10);
+        });
+    };
+    return DecadeFilterPipe;
+}());
+DecadeFilterPipe = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"])({
+        name: 'decadefilter'
+    })
+], DecadeFilterPipe);
+
+//# sourceMappingURL=decade-filter.pipe.js.map
 
 /***/ }),
 

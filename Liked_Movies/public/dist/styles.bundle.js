@@ -1,5 +1,12 @@
 webpackJsonp([2],{
 
+/***/ "../../../../../src/assets/movie_background.jpg":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "movie_background.89f5c83bfe3a8fd32a9b.jpg";
+
+/***/ }),
+
 /***/ "../../../../../src/styles.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35,7 +42,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\nbody{\n    background-image: url(" + __webpack_require__("../../../../../src/assets/movie_background.jpg") + ");\n    background-repeat: no-repeat;\n}", ""]);
 
 // exports
 

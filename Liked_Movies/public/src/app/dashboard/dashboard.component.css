@@ -1,4 +1,4 @@
-h3{
+h1{
     text-align: center;
 }
 
@@ -10,4 +10,8 @@ img{
 .review{
     /* margin: 10px; */
     padding: 10px;
+}
+
+.search{
+    margin-bottom: 10px;
 }

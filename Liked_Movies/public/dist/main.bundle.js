@@ -272,26 +272,26 @@ var DashboardComponent = (function () {
     };
     //Sets the decade to be filtered on click
     DashboardComponent.prototype.filter_decade = function (decade) {
-        this.selectedDecade = decade;
+        this.selected_decade = decade;
     };
     //Computes the decade array for filter
     DashboardComponent.prototype.compute_decade = function () {
-        var minYear = this.movies[0].year;
-        var maxYear = this.movies[0].year;
+        var min_year = this.movies[0].year;
+        var max_year = this.movies[0].year;
         //Gets the minimum and maximum year in the list
         for (var i = 0; i < this.movies.length; i++) {
-            if (minYear > this.movies[i].year) {
-                minYear = this.movies[i].year;
+            if (min_year > this.movies[i].year) {
+                min_year = this.movies[i].year;
             }
-            if (this.movies[i].year > maxYear) {
-                maxYear = this.movies[i];
+            if (this.movies[i].year > max_year) {
+                max_year = this.movies[i];
             }
         }
         //Gives minYear and maxYear
-        minYear = minYear - (minYear % 10);
-        maxYear = maxYear - (maxYear % 10);
+        min_year = min_year - (min_year % 10);
+        max_year = max_year - (max_year % 10);
         //Creates the decade array
-        for (var i = parseInt(minYear); i <= parseInt(maxYear); i += 10) {
+        for (var i = parseInt(min_year); i <= parseInt(max_year); i += 10) {
             this.decade.push(i);
         }
         return this.decade;
@@ -304,17 +304,17 @@ var DashboardComponent = (function () {
             storage.removeItem(x);
             return true;
         }
-        catch (e) {
-            return e instanceof DOMException && (
+        catch (err) {
+            return err instanceof DOMException && (
             // everything except Firefox
-            e.code === 22 ||
+            err.code === 22 ||
                 // Firefox
-                e.code === 1014 ||
+                err.code === 1014 ||
                 // test name field too, because code might not be present
                 // everything except Firefox
-                e.name === 'QuotaExceededError' ||
+                err.name === 'QuotaExceededError' ||
                 // Firefox
-                e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+                err.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
                 // acknowledge QuotaExceededError only if there's something already stored
                 storage.length !== 0;
         }

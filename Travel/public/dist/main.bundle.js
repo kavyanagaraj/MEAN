@@ -710,7 +710,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = " <p id = \"header\"> \n<!-- <a [routerLink] = \"['/search']\"> Attractions </a>  |     \n<a [routerLink] = \"['/createtrip']\"> Plan a Trip </a>  | -->\n<!-- <a [routerLink] = \"['/dashboard']\"> Dashboard </a> | -->\n <a [routerLink] = \"['/logout']\" class =\"right\" (click)=\"logout()\"> Logout </a> \n</p>  \n\n{{trips | json}}\n\n<div class = \"container\">\n    \n</div>\n"
+module.exports = " <p id = \"header\"> \n<!-- <a [routerLink] = \"['/search']\"> Attractions </a>  |     \n<a [routerLink] = \"['/createtrip']\"> Plan a Trip </a>  | -->\n<!-- <a [routerLink] = \"['/dashboard']\"> Dashboard </a> | -->\n <a [routerLink] = \"['/logout']\" class =\"right\" (click)=\"logout()\"> Logout </a> \n</p>  \n\n<div class = \"container\">\n    <div *ngFor = \"let trip of trips\" class = \"card-panel \">\n        <!-- {{trip | json}} -->\n        <div class = \"row\">\n            <p class = \"col s4 m4\">Location : {{trip.location}}</p>\n            <p class = \"col s3 offset-s5 m3 offset-m5\">{{trip.start_date | date:'longDate'}} - {{trip.end_date | date:'longDate'}}</p> \n        </div>\n        <ul *ngFor = \"let day of trip._days; let i = index\" class=\"collection\">\n            <li class=\"collection-item\">Day {{i+1}}: {{day.note}}</li>\n        </ul>\n    </div>\n</div>\n"
 
 /***/ }),
 

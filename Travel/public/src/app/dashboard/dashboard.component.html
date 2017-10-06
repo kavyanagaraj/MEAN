@@ -5,8 +5,15 @@
  <a [routerLink] = "['/logout']" class ="right" (click)="logout()"> Logout </a> 
 </p>  
 
-{{trips | json}}
-
 <div class = "container">
-    
+    <div *ngFor = "let trip of trips" class = "card-panel ">
+        <!-- {{trip | json}} -->
+        <div class = "row">
+            <p class = "col s4 m4">Location : {{trip.location}}</p>
+            <p class = "col s3 offset-s5 m3 offset-m5">{{trip.start_date | date:'longDate'}} - {{trip.end_date | date:'longDate'}}</p> 
+        </div>
+        <ul *ngFor = "let day of trip._days; let i = index" class="collection">
+            <li class="collection-item">Day {{i+1}}: {{day.note}}</li>
+        </ul>
+    </div>
 </div>
